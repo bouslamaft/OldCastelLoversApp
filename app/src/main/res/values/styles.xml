@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Set the background to a custom drawable for rounded corners -->
+        <item name="android:background">@drawable/rounded_search_view_bg</item>
+        <!-- Set the text color to white -->
+        <item name="android:queryBackground">@android:color/white</item>
+        <!-- Customize other SearchView attributes as needed -->
+    </style>
+
+</resources>
