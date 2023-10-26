@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Check Icon for Save -->
+    <ImageView
+        android:id="@+id/saveIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Save"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_check_24" />
+
+    <!-- Screen Title -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CASTLE JOURNEY ENTRY"
+        android:textSize="24sp"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/saveIcon"
+        android:layout_marginTop="16dp" />
+
+    <!-- DatePicker -->
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="JAN 01 2020"
+        android:textSize="18sp"
+        android:fontFamily="serif-monospace"
+        android:textColor="@android:color/black"
+        style="?android:spinnerStyle"
+        android:layout_below="@id/textViewTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:onClick="openDatePicker" />
+
+    <!-- Castle Name with an icon (e.g., castle icon) -->
+    <RelativeLayout
+        android:id="@+id/castleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datePickerButton"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/castleIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Castle"
+            android:src="@drawable/baseline_castle_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewCastleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Castle Name:"
+            android:fontFamily="serif-monospace"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/castleIcon"
+            android:layout_alignBaseline="@id/castleIcon"
+            android:layout_marginStart="8dp" />
+    </RelativeLayout>
+
+    <!-- Location with an icon (e.g., location icon) -->
+    <RelativeLayout
+        android:id="@+id/locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/castleLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Location"
+            android:src="@drawable/baseline_place_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location:"
+            android:textSize="16sp"
+            android:fontFamily="serif-monospace"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/locationIcon"
+            android:layout_alignBaseline="@id/locationIcon"
+            android:layout_marginStart="8dp" />
+    </RelativeLayout>
+
+    <!-- Website with an icon (e.g., website icon) -->
+    <RelativeLayout
+        android:id="@+id/websiteLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/websiteIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Website"
+            android:src="@drawable/baseline_web_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Website:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="serif-monospace"
+            android:layout_toEndOf="@id/websiteIcon"
+            android:layout_alignBaseline="@id/websiteIcon"
+            android:layout_marginStart="8dp" />
+    </RelativeLayout>
+
+    <!-- GPS Coordinates with an icon (e.g., GPS icon) -->
+    <RelativeLayout
+        android:id="@+id/gpsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/websiteLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/gpsIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="GPS Coordinates"
+            android:src="@drawable/baseline_gps_fixed_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GPS Coordinates:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="serif-monospace"
+            android:layout_toEndOf="@id/gpsIcon"
+            android:layout_alignBaseline="@id/gpsIcon"
+            android:layout_marginStart="8dp" />
+    </RelativeLayout>
+
+    <!-- Large Text Input Box -->
+    <EditText
+        android:id="@+id/largeTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/gpsLayout"
+        android:layout_marginTop="16dp"
+        android:hint="Add your notes here..."
+        android:inputType="textMultiLine"
+        android:background="@android:color/background_light" />
+
+    <!-- Attach File Icon at the Right Bottom -->
+    <ImageView
+        android:id="@+id/attachmentIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Attach File"
+        android:src="@drawable/baseline_attach_file_24" />
+
+</RelativeLayout>
