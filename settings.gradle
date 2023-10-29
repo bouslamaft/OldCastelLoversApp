@@ -1,8 +1,8 @@
 pluginManagement {
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -12,8 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
-
 rootProject.name = "OldCastelLovers"
 include ':app'
 
