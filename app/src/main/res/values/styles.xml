@@ -9,4 +9,9 @@
         <!-- Customize other SearchView attributes as needed -->
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/lightGray</item>
+        <item name="colorControlActivated">@color/sunsetYellow</item>
+    </style>
+
 </resources>
