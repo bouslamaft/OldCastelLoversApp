@@ -1,39 +1,42 @@
 package com.example.oldcastellovers.models;
 
 public class LikedCastleModel {
-    private int castleID;
+    private String castleID;
     private String castleName;
-    private String country;
-    private String region;
+    private String address;
     private String website;
     private boolean isLiked;
+    private double rating;
+    private String photoReference;
 
-    public LikedCastleModel(int castleID, String castleName, String country, String region, String website, boolean isLiked) {
+    public LikedCastleModel(String castleID, String castleName, String address, String website, boolean isLiked, double rating, String photoReference) {
         this.castleID = castleID;
         this.castleName = castleName;
-        this.country = country;
-        this.region = region;
+        this.address = address;
         this.website = website;
         this.isLiked = isLiked;
+        this.rating = rating;
+        this.photoReference = photoReference;
     }
 
     @Override
     public String toString() {
         return "LikedCastleModel{" +
-                "castleID=" + castleID +
+                "castleID='" + castleID + '\'' +
                 ", castleName='" + castleName + '\'' +
-                ", country='" + country + '\'' +
-                ", region='" + region + '\'' +
+                ", address='" + address + '\'' +
                 ", website='" + website + '\'' +
                 ", isLiked=" + isLiked +
+                ", rating=" + rating +
+                ", photoReference='" + photoReference + '\'' +
                 '}';
     }
 
-    public int getCastleID() {
+    public String getCastleID() {
         return castleID;
     }
 
-    public void setCastleID(int castleID) {
+    public void setCastleID(String castleID) {
         this.castleID = castleID;
     }
 
@@ -45,20 +48,12 @@ public class LikedCastleModel {
         this.castleName = castleName;
     }
 
-    public String getCountry() {
-        return country;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getWebsite() {
@@ -75,5 +70,21 @@ public class LikedCastleModel {
 
     public void setLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public String getPhotoReference() {
+        return photoReference;
+    }
+
+    public void setPhotoReference(String photoReference) {
+        this.photoReference = photoReference;
     }
 }
