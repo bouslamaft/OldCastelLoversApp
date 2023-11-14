@@ -9,16 +9,17 @@ public class Castle {
     @SerializedName("formatted_address")
     private String formattedAddress;
     private String name;
-
     @SerializedName("place_id")
     private String placeId;
     private double rating;
     private String url;
     private ArrayList<Photo> photos;
-
-    public ArrayList<Photo> getPhotos() {
-        return photos;
-    }
+    @SerializedName("user_ratings_total")
+    private int userRatingTotal;
+    @SerializedName("wheelchair_accessible_entrance")
+    private boolean wheelchairAccessibleEntrance;
+    private String website;
+    private ArrayList<Review> reviews;
 
     public String getFormattedAddress() {
         return formattedAddress;
@@ -40,4 +41,22 @@ public class Castle {
         return url;
     }
 
+    public ArrayList<Photo> getPhotos() {
+        return photos;
+    }
+    public int getUserRatingTotal() {
+        return userRatingTotal;
+    }
+
+    public boolean isWheelchairAccessibleEntrance() {
+        return wheelchairAccessibleEntrance;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
 }

@@ -18,22 +18,29 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CastleService {
+
+    public interface CastleDetailsCallback {
+        void onCastleDetailsFetched(Castle castle);
+        void onError(String errorMessage);
+    }
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://maps.googleapis.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     private ArrayList<CastleModel> castleList;
+    private Castle castle;
     private RecyclerView recyclerView;
 
     public CastleService(RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
     }
+    public CastleService(){}
 
     public  ArrayList<CastleModel> getCastlesByTextSearch(String query){
         ApiService apiService = retrofit.create(ApiService.class);
         String apiKey = BuildConfig.MY_API_KEY;
 
-        Call<PlaceTextSearchResponse> call = apiService.getPlacesByTextSearch(query,apiKey);
+        Call<PlaceTextSearchResponse> call = apiService.getPlacesByTextSearch(query + " castle",apiKey);
         call.enqueue(new Callback<PlaceTextSearchResponse>() {
             @Override
             public void onResponse(Call<PlaceTextSearchResponse> call, Response<PlaceTextSearchResponse> response) {
@@ -58,10 +65,11 @@ public class CastleService {
 
     // the old method by place autocomplete
 
-    public void getCastlesByAutocomplete(String placeId) {
+    public Castle getCastleDetails(String placeId,CastleDetailsCallback callback) {
         ApiService apiService = retrofit.create(ApiService.class);
-        String fields = "name,place_id,formatted_address,rating,url,photos";
-        String apiKey = BuildConfig.MY_API_KEY; // Replace with your API key
+        String fields = "name,place_id,formatted_address,rating,url,photos,reviews,website,current_opening_hours," +
+                "wheelchair_accessible_entrance,editorial_summary,user_ratings_total";
+        String apiKey = BuildConfig.MY_API_KEY;
 
         Call<PlaceDetailsResponse> call = apiService.getPlaceDetails(fields, placeId, apiKey);
 
@@ -71,10 +79,9 @@ public class CastleService {
                 if (response.isSuccessful()) {
                     PlaceDetailsResponse placeDetails = response.body();
                     if (placeDetails != null) {
-                        Castle castle = placeDetails.getResult();
+                        castle = placeDetails.getResult();
                         if (castle != null) {
-                            //castlesToList.add(castle);
-                            //updateUIWithCastles(castlesToList);
+                            callback.onCastleDetailsFetched(castle);
                         }
                     }
                 } else {
@@ -86,6 +93,7 @@ public class CastleService {
                 // Handle the network failure
             }
         });
+        return castle;
     }
 
     public void getPredictions(String query) {

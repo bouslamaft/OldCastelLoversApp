@@ -1,6 +1,5 @@
 package com.example.oldcastellovers;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,15 +10,10 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.oldcastellovers.model.CastleModel;
-import com.example.oldcastellovers.model.PlaceAutocompleteResponse;
-import com.example.oldcastellovers.model.PlaceDetailsResponse;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

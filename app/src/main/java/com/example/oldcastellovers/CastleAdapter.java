@@ -1,5 +1,7 @@
 package com.example.oldcastellovers;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +50,16 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
         holder.addressTextView.setText(castle.getFormattedAddress());
         holder.ratingBar.setRating((float)castle.getRating());
         holder.ratingNumberTextView.setText(String.valueOf(castle.getRating()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, CastleDetailsActivity.class);
+                intent.putExtra("placeId", castle.getPlaceId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
