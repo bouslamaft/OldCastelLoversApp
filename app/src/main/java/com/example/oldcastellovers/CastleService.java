@@ -1,7 +1,6 @@
 package com.example.oldcastellovers;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oldcastellovers.model.Castle;
 import com.example.oldcastellovers.model.CastleModel;
@@ -23,20 +22,21 @@ public class CastleService {
         void onCastleDetailsFetched(Castle castle);
         void onError(String errorMessage);
     }
+
+    public interface CastlesCallback {
+        void onCastlesFetched(ArrayList<CastleModel> castleList);
+        void onError(String errorMessage);
+    }
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://maps.googleapis.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     private ArrayList<CastleModel> castleList;
     private Castle castle;
-    private RecyclerView recyclerView;
 
-    public CastleService(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
     public CastleService(){}
 
-    public  ArrayList<CastleModel> getCastlesByTextSearch(String query){
+    public  ArrayList<CastleModel> getCastlesByTextSearch(String query,CastlesCallback callback){
         ApiService apiService = retrofit.create(ApiService.class);
         String apiKey = BuildConfig.MY_API_KEY;
 
@@ -50,7 +50,7 @@ public class CastleService {
                         ArrayList<CastleModel> castleModel = placeTextSearchResponse.getResults();
                         if (!castleModel.isEmpty()) {
                             castleList = castleModel;
-                            updateUIWithCastles(castleList);
+                            callback.onCastlesFetched(castleList);
                         }
                     }
                 }
@@ -124,8 +124,4 @@ public class CastleService {
         });
     }
 
-    private void updateUIWithCastles(ArrayList<CastleModel> castlesList) {
-        CastleAdapter adapter = new CastleAdapter(castleList);
-        recyclerView.setAdapter(adapter);
-    }
 }

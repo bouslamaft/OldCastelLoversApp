@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.oldcastellovers.model.Castle;
 import com.example.oldcastellovers.model.CastleModel;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -17,17 +18,11 @@ import java.util.ArrayList;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CastleService.CastlesCallback {
     private TextInputEditText searchBarEditText;
     private RecyclerView recyclerView;
     private ArrayList<CastleModel> castleList = new ArrayList<>();
-    private CastleService castleService;
-
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
+    private CastleService castleService = new CastleService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +34,11 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        CastleAdapter adapter = new CastleAdapter(castleList);
-        recyclerView.setAdapter(adapter);
 
         searchBarEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchBarEditText.getWindowToken(), 0);
-
-                castleService = new CastleService(recyclerView);
 
                 if (searchBarEditText.getText().toString().isEmpty()) {
                     searchBarEditText.setText("Please enter search query");
@@ -56,13 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     if (castleList != null) {
                         castleList.clear();
                     }
-                    //TODO because of the nature of asynchronous request, castleList comes back null
-                    castleList = castleService.getCastlesByTextSearch(searchBarEditText.getText().toString());
-
-                    // Notify the adapter that the data set has changed
-                    adapter.notifyDataSetChanged();
-
-                    updateUIWithCastles(castleList);
+                    castleList = castleService.getCastlesByTextSearch(searchBarEditText.getText().toString(),this);
                 }
                 return true;
             }
@@ -71,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onCastlesFetched(ArrayList<CastleModel> castleList) {
+        updateUIWithCastles(castleList);
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        //TODO error handling
+    }
     private void updateUIWithCastles(ArrayList<CastleModel> castleList) {
         CastleAdapter adapter = new CastleAdapter(castleList);
         recyclerView.setAdapter(adapter);
