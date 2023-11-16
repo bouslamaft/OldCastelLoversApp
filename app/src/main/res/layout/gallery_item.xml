@@ -1,0 +1,20 @@
+<!-- gallery_item.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:layout_centerInParent="true" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" /> <!-- Initially, set it as gone -->
+
+</RelativeLayout>
