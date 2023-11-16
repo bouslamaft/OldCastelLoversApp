@@ -50,8 +50,7 @@ public class GalleryActivity extends AppCompatActivity {
         if (requestCode == MEDIA_VIEW_REQUEST_CODE && resultCode == RESULT_OK) {
             // A media item has been deleted, refresh the gallery
             mediaItems = loadMediaFromFolders();
-            galleryAdapter.setMediaItems(mediaItems);
-            galleryAdapter.notifyDataSetChanged();
+            galleryAdapter.updateMediaList(mediaItems);
         }
     }
 
