@@ -4,27 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Castle Name -->
-    <TextView
-        android:id="@+id/overviewCastleName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Leśnica Castle"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <!-- Rating Text -->
-    <TextView
-        android:id="@+id/overviewRatingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="4.5"
-        android:textSize="16sp"
-        android:layout_below="@id/overviewCastleName"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="16dp" />
 
     <!-- Address Text -->
     <TextView
@@ -33,9 +12,12 @@
         android:layout_height="wrap_content"
         android:text="Address"
         android:textSize="16sp"
-        android:layout_below="@id/overviewRatingText"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp" />
+
+    <!-- TODO: Opening Hours Implementation -->
+    <!-- TODO: Phone Number Implementation -->
+
 
     <!-- Website Text (Clickable as a Link) -->
     <TextView

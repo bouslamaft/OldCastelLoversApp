@@ -1,20 +1,22 @@
 package com.example.oldcastellovers;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.oldcastellovers.fragments.AboutFragment;
-import com.example.oldcastellovers.fragments.OverviewFragment;
-import com.example.oldcastellovers.fragments.ReviewsFragment;
+import com.example.oldcastellovers.UI.CastleViewModel;
+import com.example.oldcastellovers.UI.adapters.PhotoPagerAdapter;
+import com.example.oldcastellovers.UI.adapters.ReviewAdapter;
+import com.example.oldcastellovers.UI.adapters.TabAdapter;
+import com.example.oldcastellovers.UI.fragments.AboutFragment;
+import com.example.oldcastellovers.UI.fragments.OverviewFragment;
+import com.example.oldcastellovers.UI.fragments.ReviewsFragment;
 import com.example.oldcastellovers.model.Castle;
 import com.example.oldcastellovers.model.Photo;
 import com.example.oldcastellovers.model.Review;
@@ -41,6 +43,9 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     private List<Review> reviewList = new ArrayList();
     private TabAdapter tabAdapter;
 
+    private CastleViewModel viewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +63,9 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         photoPagerAdapter = new PhotoPagerAdapter(photoReferenceList);
         photoViewPager.setAdapter(photoPagerAdapter);
 
-        castle = castleService.getCastleDetails(placeId, this);
+        viewModel = new ViewModelProvider(this).get(CastleViewModel.class);
 
+        castle = castleService.getCastleDetails(placeId, this);
 
         setupViewPager();
     }
@@ -68,6 +74,11 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     public void onCastleDetailsFetched(Castle castle) {
         castleNameTextView.setText(castle.getName());
         ratingBar.setRating((float) castle.getRating());
+
+        //setting the castle object to the ViewModel in order to get the live object inside of the fragment class.
+        viewModel.setCastle(castle);
+
+
 
         for (Photo photo : castle.getPhotos()) {
             photoReferenceList.add(photo.getReference());
@@ -80,11 +91,22 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
 //        }
 
         photoPagerAdapter.notifyDataSetChanged();
+        tabAdapter.notifyDataSetChanged();
+
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO add the castle into the bookmarked caste list
+                //TODO save the castle field to database
+                castle.getPlaceId();
+                castle.getName();
+            }
+        });
     }
 
     @Override
     public void onError(String errorMessage) {
-        // Handle error
+        //TODO error handling
     }
 
     private void setupViewPager() {

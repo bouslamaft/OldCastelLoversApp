@@ -1,4 +1,4 @@
-package com.example.oldcastellovers.fragments;
+package com.example.oldcastellovers.UI.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

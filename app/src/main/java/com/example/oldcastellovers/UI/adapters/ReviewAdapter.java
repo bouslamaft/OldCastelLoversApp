@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -6,6 +6,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.model.Review;
 
 import java.util.List;

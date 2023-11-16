@@ -9,14 +9,11 @@ import android.os.Bundle;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
-import com.example.oldcastellovers.model.Castle;
+import com.example.oldcastellovers.UI.adapters.CastleAdapter;
 import com.example.oldcastellovers.model.CastleModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements CastleService.CastlesCallback {
     private TextInputEditText searchBarEditText;

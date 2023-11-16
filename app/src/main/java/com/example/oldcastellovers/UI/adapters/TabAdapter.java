@@ -1,4 +1,6 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.adapters;
+
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,7 @@ public class TabAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        Log.d("TabAdapter", "getItem: " + position);
         return fragmentList.get(position);
     }
 

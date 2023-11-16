@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oldcastellovers.BuildConfig;
+import com.example.oldcastellovers.CastleDetailsActivity;
+import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.model.CastleModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleViewHolder> {
@@ -41,7 +43,7 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
                 .load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400" +
                         "&photo_reference="+reference+
             "&key" +
-            "="+BuildConfig.MY_API_KEY)
+            "="+ BuildConfig.MY_API_KEY)
                 .placeholder(R.drawable.homecastlepic) // You can use a placeholder image// You can use an error image
                 .into(holder.photoImageView); // Set the loaded image to the ImageView
 
