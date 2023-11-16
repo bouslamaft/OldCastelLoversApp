@@ -1,0 +1,94 @@
+<!-- res/layout/review_item.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    android:layout_margin="8dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="16dp">
+
+<!-- Header -->
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical">
+
+        <!-- Author Avatar -->
+        <ImageView
+            android:id="@+id/authorAvatarImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/default_avatar"
+            android:scaleType="centerCrop" />
+
+        <!-- Author Name -->
+        <TextView
+            android:id="@+id/authorNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
+
+        <!-- Spacer (to push Rating Bar to the right) -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Rating Bar -->
+        <RatingBar
+            android:id="@+id/reviewRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:stepSize="0.1"
+            android:numStars="5"
+            android:isIndicator="true"
+            android:theme="@style/RatingBar" />
+
+        <!-- Rating Number -->
+        <TextView
+            android:id="@+id/reviewRatingNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.5"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+
+
+<!-- Date -->
+<TextView
+    android:id="@+id/reviewDateTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Date"
+    android:textSize="12sp"
+    android:textStyle="italic"
+    android:layout_marginTop="8dp" />
+
+<!-- Review Text -->
+<TextView
+    android:id="@+id/reviewTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Review Text"
+    android:textSize="14sp"
+    android:layout_marginTop="8dp" />
+</LinearLayout>
+    </androidx.cardview.widget.CardView>

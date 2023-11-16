@@ -1,0 +1,108 @@
+<!-- res/layout/castle_details.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Castle Photos (you can use a ViewPager or RecyclerView to display multiple photos) -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/photoViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/app_name" />
+
+        <!-- Castle Name -->
+        <TextView
+            android:id="@+id/castleNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Leśnica Castle"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="16dp" />
+
+        <!-- Ratings Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="16dp">
+
+            <!-- Rating Number -->
+            <TextView
+                android:id="@+id/ratingNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.5"
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical" />
+
+            <!-- Rating Bar -->
+            <RatingBar
+                android:id="@+id/detailsRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/ratingBarStyleSmall"
+                android:stepSize="0.1"
+                android:numStars="5"
+                android:isIndicator="true"
+                android:layout_gravity="center_vertical" />
+
+            <!-- Total Rating Text -->
+            <TextView
+                android:id="@+id/totalRatingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(123 Reviews)"
+                android:textSize="16sp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <!-- Buttons Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginEnd="16dp">
+
+            <!-- Bookmark Button -->
+            <Button
+                android:id="@+id/bookmarkButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bookmark" />
+
+            <!-- Create Entry Button -->
+            <Button
+                android:id="@+id/createEntryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Entry"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+        <!-- TabLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TabLayout"
+            android:layout_margin="16dp"
+            app:tabMode="scrollable"
+            app:tabGravity="fill"
+            android:contentDescription=""/>
+
+        <!-- ViewPager for Tabs -->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/tabViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="280dp" />
+
+    </LinearLayout>
+</ScrollView>
