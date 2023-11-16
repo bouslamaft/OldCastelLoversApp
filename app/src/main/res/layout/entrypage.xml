@@ -70,6 +70,15 @@
             android:layout_toEndOf="@id/castleIcon"
             android:layout_alignBaseline="@id/castleIcon"
             android:layout_marginStart="8dp" />
+
+        <!-- New TextView for Castle Content -->
+        <TextView
+            android:id="@+id/textViewCastleContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCastleName"
+            android:layout_marginTop="8dp"
+            android:text="Castle Content Goes Here" />
     </RelativeLayout>
 
     <!-- Location with an icon (e.g., location icon) -->
@@ -99,6 +108,15 @@
             android:layout_toEndOf="@id/locationIcon"
             android:layout_alignBaseline="@id/locationIcon"
             android:layout_marginStart="8dp" />
+
+        <!-- New TextView for location Content -->
+        <TextView
+            android:id="@+id/textViewlocationContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewLocation"
+            android:layout_marginTop="8dp"
+            android:text="location Content Goes Here" />
     </RelativeLayout>
 
     <!-- Website with an icon (e.g., website icon) -->
@@ -128,6 +146,15 @@
             android:layout_toEndOf="@id/websiteIcon"
             android:layout_alignBaseline="@id/websiteIcon"
             android:layout_marginStart="8dp" />
+
+        <!-- New TextView for Castle Content -->
+        <TextView
+            android:id="@+id/textViewWebsiteContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewWebsite"
+            android:layout_marginTop="8dp"
+            android:text="Castle Content Goes Here" />
     </RelativeLayout>
 
     <!-- GPS Coordinates with an icon (e.g., GPS icon) -->
@@ -157,6 +184,15 @@
             android:layout_toEndOf="@id/gpsIcon"
             android:layout_alignBaseline="@id/gpsIcon"
             android:layout_marginStart="8dp" />
+
+        <!-- New TextView for Castle Content -->
+        <TextView
+            android:id="@+id/textViewGPScontent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewGPS"
+            android:layout_marginTop="8dp"
+            android:text="Castle Content Goes Here" />
     </RelativeLayout>
 
     <!-- Large Text Input Box -->
@@ -169,6 +205,26 @@
         android:hint="Add your notes here..."
         android:inputType="textMultiLine"
         android:background="@android:color/background_light" />
+    <!-- Add a layout to display pictures and videos -->
+
+    <!-- Scroll View for Media -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/largeTextInput"
+        android:layout_marginTop="16dp">
+
+        <!-- Linear Layout to hold media elements (pictures and videos) -->
+        <LinearLayout
+            android:id="@+id/mediaLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Add your media elements (e.g., ImageViews or VideoViews) here -->
+        </LinearLayout>
+    </ScrollView>
+
 
     <!-- Attach File Icon at the Right Bottom -->
     <ImageView
