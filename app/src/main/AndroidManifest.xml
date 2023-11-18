@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
 
     <application
         android:allowBackup="true"
@@ -22,30 +22,39 @@
             android:exported="true"
             android:label="@string/title_activity_gallery"
             android:theme="@style/Theme.OldCastelLovers">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 
         <activity
             android:name=".MainActivity"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".EntryPage"
             android:exported="true" >
+        </activity>
 
+        <activity
+            android:name=".CastleDetailsActivity"
+            android:exported="true" >
 
         </activity>
+
 
         <activity
             android:name=".MediaViewActivity"
             android:exported="false"
             android:label="Media View Activity">
         </activity>
+
+        <meta-data
+            android:name="apiKey"
+            android:value="${MY_API_KEY}"/>
 
 
         <provider
@@ -55,7 +64,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"
+                />
         </provider>
     </application>
 
