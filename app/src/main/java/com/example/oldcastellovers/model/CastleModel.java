@@ -13,6 +13,25 @@ public class CastleModel {
     private double rating;
     private ArrayList<Photo> photos;
 
+    public CastleModel(String name, String formattedAddress, String placeId, double rating, ArrayList<Photo> photos) {
+        this.name = name;
+        this.formattedAddress = formattedAddress;
+        this.placeId = placeId;
+        this.rating = rating;
+        this.photos = photos;
+    }
+
+    @Override
+    public String toString() {
+        return "CastleModel{" +
+                "name='" + name + '\'' +
+                ", formattedAddress='" + formattedAddress + '\'' +
+                ", placeId='" + placeId + '\'' +
+                ", rating=" + rating +
+                ", photos=" + photos +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

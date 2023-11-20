@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,7 +18,9 @@ import com.example.oldcastellovers.UI.adapters.TabAdapter;
 import com.example.oldcastellovers.UI.fragments.AboutFragment;
 import com.example.oldcastellovers.UI.fragments.OverviewFragment;
 import com.example.oldcastellovers.UI.fragments.ReviewsFragment;
+import com.example.oldcastellovers.database.DataBaseHelper;
 import com.example.oldcastellovers.model.Castle;
+import com.example.oldcastellovers.model.CastleModel;
 import com.example.oldcastellovers.model.Photo;
 import com.example.oldcastellovers.model.Review;
 import com.google.android.material.tabs.TabLayout;
@@ -44,7 +47,6 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     private TabAdapter tabAdapter;
 
     private CastleViewModel viewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +98,18 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO add the castle into the bookmarked caste list
-                //TODO save the castle field to database
-                castle.getPlaceId();
-                castle.getName();
+                //LikedCastleModel likedCastleModel = new LikedCastleModel(castle.getPlaceId().toString(), castle.getName().toString(),castle.getFormattedAddress().toString(),null,1, castle.getRating(), null);
+                CastleModel castleModel;
+                try {
+                    castleModel = new CastleModel(castle.getName(), castle.getFormattedAddress(),castle.getPlaceId(), castle.getRating(), null);
+                }catch (Exception e){
+                    Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
+                    castleModel = new CastleModel("Error","Error","Error",-1,null);
+                }
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(CastleDetailsActivity.this);
+                
+                boolean success = dataBaseHelper.addOne(castleModel);
+                Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }
         });
     }
