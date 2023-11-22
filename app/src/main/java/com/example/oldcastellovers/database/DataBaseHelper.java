@@ -80,7 +80,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String Castle_Address = cursor.getString(2);
                 Double Castle_Rating = cursor.getDouble(3);
 
-                CastleModel newCastleModel = new CastleModel(Castle_ID, Castle_Name, Castle_Address, Castle_Rating, null);
+                CastleModel newCastleModel = new CastleModel(Castle_Name, Castle_Address,Castle_ID, Castle_Rating, null);
                 returnList.add(newCastleModel);
             }while (cursor.moveToNext());
         }else {
