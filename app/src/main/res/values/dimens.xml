@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="opening_hours_margin_top">16dp</dimen>
+    <dimen name="website_margin_top_collapsed">16dp</dimen>
+    <dimen name="website_margin_top_expanded">16dp</dimen>
+</resources>

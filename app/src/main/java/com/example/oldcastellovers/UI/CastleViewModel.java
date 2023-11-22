@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel;
 import com.example.oldcastellovers.model.Castle;
 
 public class CastleViewModel extends ViewModel {
-    private final MutableLiveData<Castle> castleLiveData = new MutableLiveData<>();
+    private MutableLiveData<Castle> castleLiveData = new MutableLiveData<>();
 
-        public void setCastle(Castle newCastle) {
-            castleLiveData.setValue(newCastle);
+    public void setCastle(Castle castle) {
+        castleLiveData.setValue(castle);
     }
 
     public LiveData<Castle> getCastle() {

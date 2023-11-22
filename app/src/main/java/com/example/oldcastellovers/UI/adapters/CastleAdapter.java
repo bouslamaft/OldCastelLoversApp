@@ -44,8 +44,8 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
                         "&photo_reference="+reference+
             "&key" +
             "="+ BuildConfig.MY_API_KEY)
-                .placeholder(R.drawable.homecastlepic) // You can use a placeholder image// You can use an error image
-                .into(holder.photoImageView); // Set the loaded image to the ImageView
+                .placeholder(R.drawable.homecastlepic)
+                .into(holder.photoImageView);
 
 
         holder.nameTextView.setText(castle.getName());

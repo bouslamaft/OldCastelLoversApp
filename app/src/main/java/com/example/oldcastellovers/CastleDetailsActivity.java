@@ -38,6 +38,7 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     private ViewPager tabViewPager;
     private Button bookmarkButton;
     private Button createEntryButton;
+    private TabLayout photoTablayout;
     private ReviewsFragment reviewsFragment;
     List<String> photoReferenceList = new ArrayList<>();
     private List<Review> reviewList = new ArrayList();
@@ -59,9 +60,11 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         tabViewPager = findViewById(R.id.tabViewPager);
         bookmarkButton = findViewById(R.id.bookmarkButton);
         createEntryButton = findViewById(R.id.createEntryButton);
+        photoTablayout = findViewById(R.id.photoTabLayout);
 
         photoPagerAdapter = new PhotoPagerAdapter(photoReferenceList);
         photoViewPager.setAdapter(photoPagerAdapter);
+        photoTablayout.setupWithViewPager(photoViewPager);
 
         viewModel = new ViewModelProvider(this).get(CastleViewModel.class);
 
@@ -78,30 +81,13 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         //setting the castle object to the ViewModel in order to get the live object inside of the fragment class.
         viewModel.setCastle(castle);
 
-
-
         for (Photo photo : castle.getPhotos()) {
             photoReferenceList.add(photo.getReference());
         }
 
-//        if (reviewsFragment != null) {
-//            reviewList = castle.getReviews();
-//            reviewAdapter.setReviewList(reviewList);
-//            reviewAdapter.notifyDataSetChanged();
-//        }
-
         photoPagerAdapter.notifyDataSetChanged();
         tabAdapter.notifyDataSetChanged();
 
-        bookmarkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO add the castle into the bookmarked caste list
-                //TODO save the castle field to database
-                castle.getPlaceId();
-                castle.getName();
-            }
-        });
     }
 
     @Override
