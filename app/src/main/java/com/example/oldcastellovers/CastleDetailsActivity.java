@@ -1,5 +1,6 @@
 package com.example.oldcastellovers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -110,6 +111,11 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                 
                 boolean success = dataBaseHelper.addOne(castleModel);
                 Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+                if(success){
+                    Intent intent = new Intent(CastleDetailsActivity.this, LikedCastle.class);
+                    startActivity(intent);
+                }
             }
         });
     }
