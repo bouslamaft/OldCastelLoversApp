@@ -46,8 +46,11 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     List<String> photoReferenceList = new ArrayList<>();
     private List<Review> reviewList = new ArrayList();
     private TabAdapter tabAdapter;
-
     private CastleViewModel viewModel;
+
+    private String castleName;
+    private String castleAddress;
+    private String castleWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,27 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         castle = castleService.getCastleDetails(placeId, this);
 
         setupViewPager();
+
+        createEntryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Check if castle details are available
+                if (castleName != null && castleAddress != null && castleWebsite != null) {
+                    // Create an intent to start EntryPageActivity
+                    Intent intent = new Intent(CastleDetailsActivity.this, EntryPage.class);
+
+                    // Pass castle details to EntryPageActivity
+                    intent.putExtra("castleName", castleName);
+                    intent.putExtra("castleAddress", castleAddress);
+                    intent.putExtra("castleWebsite", castleWebsite);
+
+                    // Start EntryPageActivity
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CastleDetailsActivity.this, "Castle details not available", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -80,8 +104,10 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
 
         //setting the castle object to the ViewModel in order to get the live object inside of the fragment class.
         viewModel.setCastle(castle);
-
-
+        // fields to transfer to new entry screen.
+        castleName = castle.getName();
+        castleAddress = castle.getFormattedAddress();
+        castleWebsite = castle.getWebsite();
 
         for (Photo photo : castle.getPhotos()) {
             photoReferenceList.add(photo.getReference());
@@ -118,7 +144,11 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                 }
             }
         });
+
+
     }
+
+
 
     @Override
     public void onError(String errorMessage) {

@@ -3,20 +3,12 @@ package com.example.oldcastellovers;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaRecorder;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,25 +16,24 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.documentfile.provider.DocumentFile;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
+
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import android.content.Context;
-import android.provider.DocumentsContract;
 
 
 
@@ -73,6 +64,19 @@ public class EntryPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entrypage);
 
+        // Retrieve castle details from the intent
+        Intent intent = getIntent();
+        String castleName = intent.getStringExtra("castleName");
+        String castleAddress = intent.getStringExtra("castleAddress");
+        String castleWebsite = intent.getStringExtra("castleWebsite");
+
+        // Update TextView elements in entrypage.xml with castle details
+        TextView textViewCastleContent = findViewById(R.id.textViewCastleContent);
+        TextView textViewLocationContent = findViewById(R.id.textViewlocationContent);
+        TextView textViewWebsiteContent = findViewById(R.id.textViewWebsiteContent);
+        textViewCastleContent.setText(castleName);
+        textViewLocationContent.setText(castleAddress);
+        textViewWebsiteContent.setText(castleWebsite);
 
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);

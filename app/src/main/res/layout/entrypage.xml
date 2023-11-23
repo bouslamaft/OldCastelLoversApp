@@ -158,49 +158,13 @@
     </RelativeLayout>
 
     <!-- GPS Coordinates with an icon (e.g., GPS icon) -->
-    <RelativeLayout
-        android:id="@+id/gpsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/websiteLayout"
-        android:layout_marginTop="16dp">
-
-        <ImageView
-            android:id="@+id/gpsIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="GPS Coordinates"
-            android:src="@drawable/baseline_gps_fixed_24"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:id="@+id/textViewGPS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GPS Coordinates:"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:fontFamily="serif-monospace"
-            android:layout_toEndOf="@id/gpsIcon"
-            android:layout_alignBaseline="@id/gpsIcon"
-            android:layout_marginStart="8dp" />
-
-        <!-- New TextView for Castle Content -->
-        <TextView
-            android:id="@+id/textViewGPScontent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewGPS"
-            android:layout_marginTop="8dp"
-            android:text="Castle Content Goes Here" />
-    </RelativeLayout>
 
     <!-- Large Text Input Box -->
     <EditText
         android:id="@+id/largeTextInput"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@id/gpsLayout"
+        android:layout_below="@id/websiteLayout"
         android:layout_marginTop="16dp"
         android:hint="Add your notes here..."
         android:inputType="textMultiLine"
