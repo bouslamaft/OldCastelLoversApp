@@ -66,6 +66,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean deleteOne(CastleModel castleModel){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String whereClause = COLUMN_ID + " = ?";
+        String[] whereArgs = {castleModel.getPlaceId()};
+
+        // Use the delete method to remove the row
+        int deletedRows = db.delete(LIKED_CASTLE_TABLE, whereClause, whereArgs);
+
+        // Check if the deletion was successful
+        return deletedRows > 0;
+    }
+
     public List<CastleModel> getAll(){
         List<CastleModel> returnList = new ArrayList<>();
 
