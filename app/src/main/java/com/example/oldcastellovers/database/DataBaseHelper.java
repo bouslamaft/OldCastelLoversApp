@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.oldcastellovers.model.CastleModel;
+import com.example.oldcastellovers.models.LikedCastleModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +50,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(CastleModel castleModel){
+    public boolean addOne(LikedCastleModel likedCastleModel){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(COLUMN_ID, castleModel.getPlaceId());
-        cv.put(COLUMN_CASTLE_NAME, castleModel.getName());
-        cv.put(COLUMN_CASTLE_ADDRESS, castleModel.getFormattedAddress());
-        cv.put(COLUMN_CASTLE_RATING, castleModel.getRating());
+        cv.put(COLUMN_ID, likedCastleModel.getPlaceId());
+        cv.put(COLUMN_CASTLE_NAME, likedCastleModel.getCastleName());
+        cv.put(COLUMN_CASTLE_ADDRESS, likedCastleModel.getAddress());
+        cv.put(COLUMN_CASTLE_RATING, likedCastleModel.getRating());
+        cv.put(COLUMN_CASTLE_PICTURE,likedCastleModel.getPhotoReference());
 
         long insert = db.insert(LIKED_CASTLE_TABLE,null,cv);
         if (insert == -1) {
@@ -66,10 +68,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteOne(CastleModel castleModel){
+    public boolean deleteOne(LikedCastleModel likedCastleModel){
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_ID + " = ?";
-        String[] whereArgs = {castleModel.getPlaceId()};
+        String[] whereArgs = {likedCastleModel.getPlaceId()};
 
         // Use the delete method to remove the row
         int deletedRows = db.delete(LIKED_CASTLE_TABLE, whereClause, whereArgs);
@@ -78,8 +80,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return deletedRows > 0;
     }
 
-    public List<CastleModel> getAll(){
-        List<CastleModel> returnList = new ArrayList<>();
+    public List<LikedCastleModel> getAll(){
+        List<LikedCastleModel> returnList = new ArrayList<>();
 
         String queryString = "SELECT * FROM " + LIKED_CASTLE_TABLE;
         SQLiteDatabase db = getReadableDatabase();
@@ -87,13 +89,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()){
             do{
-                String Castle_ID = cursor.getString(0);
-                String Castle_Name = cursor.getString(1);
-                String Castle_Address = cursor.getString(2);
-                Double Castle_Rating = cursor.getDouble(3);
+                String placeId = cursor.getString(0);
+                String castleName = cursor.getString(1);
+                String castleAddress = cursor.getString(2);
+                Double castleRating = cursor.getDouble(3);
+                String castlePhotoReference = cursor.getString(4);
 
-                CastleModel newCastleModel = new CastleModel(Castle_Name, Castle_Address,Castle_ID, Castle_Rating, null);
-                returnList.add(newCastleModel);
+                LikedCastleModel newlikedCastleModel = new LikedCastleModel(placeId, castleName,castleAddress, castleRating, castlePhotoReference);
+                returnList.add(newlikedCastleModel);
             }while (cursor.moveToNext());
         }else {
             //Empty list

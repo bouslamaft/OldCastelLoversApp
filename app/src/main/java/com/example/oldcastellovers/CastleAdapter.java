@@ -14,15 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.oldcastellovers.model.CastleModel;
+import com.example.oldcastellovers.models.LikedCastleModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleViewHolder> {
 
     private Context context;
-    private static List<CastleModel> castleList;
+    private static List<LikedCastleModel> likedCastleModels;
     public interface OnDeleteClickListener {
-        void onDeleteClick(CastleModel castleModel);
+        void onDeleteClick(LikedCastleModel likedCastleModel);
     }
     private static OnDeleteClickListener onDeleteClickListener;
     public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
@@ -32,9 +34,9 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
 //        void onDeleteClick(CastleModel castleModel);
 //    }
 
-    public CastleAdapter(Context context, List<CastleModel> castleList) {
+    public CastleAdapter(Context context, List<LikedCastleModel> likedCastleModels) {
         this.context = context;
-        this.castleList = castleList;
+        this.likedCastleModels = likedCastleModels;
     }
 
     @NonNull
@@ -46,23 +48,32 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
 
     @Override
     public void onBindViewHolder(@NonNull CastleViewHolder holder, int position) {
-        CastleModel castleModel = castleList.get(position);
+        LikedCastleModel likedCastleModel = likedCastleModels.get(position);
+        String reference = likedCastleModel.getPhotoReference() == null ? "" : likedCastleModel.getPhotoReference();
 
-        holder.nameTextView.setText(castleModel.getName());
-        holder.addressTextView.setText(castleModel.getFormattedAddress());
-        holder.ratingBar.setRating((float) castleModel.getRating());
-        holder.ratingNumberTextView.setText(String.valueOf(castleModel.getRating()));
+        holder.nameTextView.setText(likedCastleModel.getCastleName());
+        holder.addressTextView.setText(likedCastleModel.getAddress());
+        holder.ratingBar.setRating((float) likedCastleModel.getRating());
+        holder.ratingNumberTextView.setText(String.valueOf(likedCastleModel.getRating()));
+
+        Picasso.get()
+                .load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400" +
+                        "&photo_reference="+reference+
+                        "&key" +
+                        "="+ BuildConfig.MY_API_KEY)
+                .placeholder(R.drawable.homecastlepic) // You can use a placeholder image// You can use an error image
+                .into(holder.photoImageView);
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onDeleteClickListener.onDeleteClick(castleModel);
+                onDeleteClickListener.onDeleteClick(likedCastleModel);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return castleList.size();
+        return likedCastleModels.size();
     }
 
     public static class CastleViewHolder extends RecyclerView.ViewHolder {

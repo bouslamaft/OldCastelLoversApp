@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oldcastellovers.database.DataBaseHelper;
-import com.example.oldcastellovers.model.CastleModel;
+import com.example.oldcastellovers.models.LikedCastleModel;
 
 import java.util.List;
 
@@ -28,7 +28,6 @@ public class LikedCastle extends AppCompatActivity implements CastleAdapter.OnDe
     private DataBaseHelper dataBaseHelper;
     RecyclerView recyclerView;
     ImageButton deleteIcon;
-    CastleModel castleModel;
 
 
     @Override
@@ -44,16 +43,16 @@ public class LikedCastle extends AppCompatActivity implements CastleAdapter.OnDe
 
         // Fetch castle details from the database (replace with your logic)
         //CastleModel castleModel = dataBaseHelper.getAll().get(0);
-        List<CastleModel> castleList = dataBaseHelper.getAll();
+        List<LikedCastleModel> likedCastleModels = dataBaseHelper.getAll();
 
         // Populate views with castle details
-        if (castleList != null) {
-            CastleAdapter castleAdapter = new CastleAdapter(this, castleList);
+        if (likedCastleModels != null) {
+            CastleAdapter castleAdapter = new CastleAdapter(this, likedCastleModels);
             castleAdapter.setOnDeleteClickListener(new CastleAdapter.OnDeleteClickListener() {
                 @Override
-                public void onDeleteClick(CastleModel castleModel) {
+                public void onDeleteClick(LikedCastleModel likedCastleModels) {
                     // Handle the delete action here
-                    boolean deleted = dataBaseHelper.deleteOne(castleModel);
+                    boolean deleted = dataBaseHelper.deleteOne(likedCastleModels);
 
                     if (deleted) {
                         Toast.makeText(LikedCastle.this, "Castle deleted", Toast.LENGTH_SHORT).show();
@@ -74,8 +73,8 @@ public class LikedCastle extends AppCompatActivity implements CastleAdapter.OnDe
     }
 
     @Override
-    public void onDeleteClick(CastleModel castleModel) {
-        boolean deleted = dataBaseHelper.deleteOne(castleModel);
+    public void onDeleteClick(LikedCastleModel likedCastleModel) {
+        boolean deleted = dataBaseHelper.deleteOne(likedCastleModel);
 
         if (deleted) {
             Toast.makeText(this, "Castle deleted", Toast.LENGTH_SHORT).show();
@@ -87,7 +86,7 @@ public class LikedCastle extends AppCompatActivity implements CastleAdapter.OnDe
     }
     private void refreshRecyclerView() {
         // Fetch castle details from the database
-        List<CastleModel> updatedCastleList = dataBaseHelper.getAll();
+        List<LikedCastleModel> updatedCastleList = dataBaseHelper.getAll();
         // Update the RecyclerView with the new data
         CastleAdapter updatedCastleAdapter = new CastleAdapter(this, updatedCastleList);
         updatedCastleAdapter.setOnDeleteClickListener(this);

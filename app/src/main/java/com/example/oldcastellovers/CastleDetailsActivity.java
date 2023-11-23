@@ -24,6 +24,7 @@ import com.example.oldcastellovers.model.Castle;
 import com.example.oldcastellovers.model.CastleModel;
 import com.example.oldcastellovers.model.Photo;
 import com.example.oldcastellovers.model.Review;
+import com.example.oldcastellovers.models.LikedCastleModel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -101,17 +102,16 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
             @Override
             public void onClick(View view) {
                 //LikedCastleModel likedCastleModel = new LikedCastleModel(castle.getPlaceId().toString(), castle.getName().toString(),castle.getFormattedAddress().toString(),null,1, castle.getRating(), null);
-                CastleModel castleModel;
-                try {
-                    castleModel = new CastleModel(castle.getName(), castle.getFormattedAddress(),castle.getPlaceId(),
-                            castle.getRating(), castle.getPhotos());
-                }catch (Exception e){
-                    Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
-                    castleModel = new CastleModel("Error","Error","Error",-1,null);
-                }
+                LikedCastleModel likedCastleModel;
+
+                likedCastleModel = new LikedCastleModel(castle.getPlaceId(),castle.getName(),castle.getFormattedAddress(),
+                        castle.getRating(),castle.getPhotos().get(0).getReference());
+
+                //Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
+
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(CastleDetailsActivity.this);
                 
-                boolean success = dataBaseHelper.addOne(castleModel);
+                boolean success = dataBaseHelper.addOne(likedCastleModel);
                 Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
 
                 if(success){

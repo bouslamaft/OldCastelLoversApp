@@ -152,6 +152,7 @@ public class EntryPage extends AppCompatActivity {
 
     private String getMonthFormat(int month)
     {
+        //TODO switch case or smthng
         if(month == 1)
             return "JAN";
         if(month == 2)
