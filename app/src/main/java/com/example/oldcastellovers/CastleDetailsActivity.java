@@ -74,27 +74,6 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         castle = castleService.getCastleDetails(placeId, this);
 
         setupViewPager();
-
-        createEntryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Check if castle details are available
-                if (castleName != null && castleAddress != null && castleWebsite != null) {
-                    // Create an intent to start EntryPageActivity
-                    Intent intent = new Intent(CastleDetailsActivity.this, EntryPage.class);
-
-                    // Pass castle details to EntryPageActivity
-                    intent.putExtra("castleName", castleName);
-                    intent.putExtra("castleAddress", castleAddress);
-                    intent.putExtra("castleWebsite", castleWebsite);
-
-                    // Start EntryPageActivity
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(CastleDetailsActivity.this, "Castle details not available", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
@@ -108,16 +87,12 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         castleName = castle.getName();
         castleAddress = castle.getFormattedAddress();
         castleWebsite = castle.getWebsite();
+        if (castle.getPhotos() != null && !castle.getPhotos().isEmpty()){
+            for (Photo photo : castle.getPhotos()) {
+                photoReferenceList.add(photo.getReference());
+            }
 
-        for (Photo photo : castle.getPhotos()) {
-            photoReferenceList.add(photo.getReference());
         }
-
-//        if (reviewsFragment != null) {
-//            reviewList = castle.getReviews();
-//            reviewAdapter.setReviewList(reviewList);
-//            reviewAdapter.notifyDataSetChanged();
-//        }
 
         photoPagerAdapter.notifyDataSetChanged();
         tabAdapter.notifyDataSetChanged();
@@ -128,7 +103,8 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                 //LikedCastleModel likedCastleModel = new LikedCastleModel(castle.getPlaceId().toString(), castle.getName().toString(),castle.getFormattedAddress().toString(),null,1, castle.getRating(), null);
                 CastleModel castleModel;
                 try {
-                    castleModel = new CastleModel(castle.getName(), castle.getFormattedAddress(),castle.getPlaceId(), castle.getRating(), null);
+                    castleModel = new CastleModel(castle.getName(), castle.getFormattedAddress(),castle.getPlaceId(),
+                            castle.getRating(), castle.getPhotos());
                 }catch (Exception e){
                     Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
                     castleModel = new CastleModel("Error","Error","Error",-1,null);
@@ -142,6 +118,23 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                     Intent intent = new Intent(CastleDetailsActivity.this, LikedCastle.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        createEntryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            // Check if castle details are available
+                // Create an intent to start EntryPageActivity
+                Intent intent = new Intent(CastleDetailsActivity.this, EntryPage.class);
+
+                // Pass castle details to EntryPageActivity
+                intent.putExtra("castleName", castle.getName());
+                intent.putExtra("castleAddress", castle.getFormattedAddress());
+                intent.putExtra("castleWebsite", castle.getWebsite());
+
+                // Start EntryPageActivity
+                startActivity(intent);
             }
         });
 

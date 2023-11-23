@@ -55,16 +55,9 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onDeleteClickListener != null) {
-                    onDeleteClickListener.onDeleteClick(castleModel);
-                }
+                onDeleteClickListener.onDeleteClick(castleModel);
             }
         });
-
-
-        // You may need to load the image using a library like Picasso or Glide
-        // For example, if you have a photo reference in CastleModel
-        // Picasso.get().load(castleModel.getPhotoReference()).into(holder.photoImageView);
     }
 
     @Override
@@ -90,16 +83,6 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
             ratingBar = itemView.findViewById(R.id.ratingBar);
             ratingNumberTextView = itemView.findViewById(R.id.ratingNumberTextView);
             deleteIcon = itemView.findViewById(R.id.deleteIcon);
-
-            deleteIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION && onDeleteClickListener != null) {
-                        onDeleteClickListener.onDeleteClick(castleList.get(position));
-                    }
-                }
-            });
         }
     }
 }
