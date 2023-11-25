@@ -43,6 +43,7 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     private ViewPager tabViewPager;
     private Button bookmarkButton;
     private Button createEntryButton;
+    private TabLayout photoTablayout;
     private ReviewsFragment reviewsFragment;
     List<String> photoReferenceList = new ArrayList<>();
     private List<Review> reviewList = new ArrayList();
@@ -66,9 +67,11 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         tabViewPager = findViewById(R.id.tabViewPager);
         bookmarkButton = findViewById(R.id.bookmarkButton);
         createEntryButton = findViewById(R.id.createEntryButton);
+        photoTablayout = findViewById(R.id.photoTabLayout);
 
         photoPagerAdapter = new PhotoPagerAdapter(photoReferenceList);
         photoViewPager.setAdapter(photoPagerAdapter);
+        photoTablayout.setupWithViewPager(photoViewPager);
 
         viewModel = new ViewModelProvider(this).get(CastleViewModel.class);
 
@@ -84,6 +87,10 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
 
         //setting the castle object to the ViewModel in order to get the live object inside of the fragment class.
         viewModel.setCastle(castle);
+
+        for (Photo photo : castle.getPhotos()) {
+            photoReferenceList.add(photo.getReference());
+        }
         // fields to transfer to new entry screen.
         castleName = castle.getName();
         castleAddress = castle.getFormattedAddress();
@@ -110,7 +117,7 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                 //Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(CastleDetailsActivity.this);
-                
+
                 boolean success = dataBaseHelper.addOne(likedCastleModel);
                 Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
 
@@ -140,8 +147,6 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
 
 
     }
-
-
 
     @Override
     public void onError(String errorMessage) {

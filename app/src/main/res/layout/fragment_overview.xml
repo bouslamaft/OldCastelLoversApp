@@ -1,34 +1,108 @@
 <!-- res/layout/fragment_overview.xml -->
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- Address Text -->
-    <TextView
-        android:id="@+id/overviewAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp" />
+        <!-- Location Icon -->
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/address_icon"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp" />
 
-    <!-- TODO: Opening Hours Implementation -->
-    <!-- TODO: Phone Number Implementation -->
+        <!-- Address Text -->
+        <TextView
+            android:id="@+id/overviewAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/locationIcon"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp" />
 
+        <!-- Clock Icon -->
+        <ImageView
+            android:id="@+id/clockIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/opening_hours_icon"
+            android:layout_below="@id/overviewAddress"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp" />
+        <!-- Opening Hours (Collapsible View) -->
+        <LinearLayout
+            android:id="@+id/overviewOpeningHoursLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/overviewAddress"
+            android:layout_toEndOf="@id/clockIcon"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:onClick="toggleOpeningHours"
+            >
 
-    <!-- Website Text (Clickable as a Link) -->
-    <TextView
-        android:id="@+id/overviewWebsite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Website"
-        android:textSize="16sp"
-        android:layout_below="@id/overviewAddress"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:autoLink="web" />
+            <TextView
+                android:id="@+id/overviewOpeningHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Now"
+                android:textSize="16sp"
+                android:background="?android:attr/selectableItemBackground"/>
 
-</RelativeLayout>
+            <!-- Icon for collapse/expand -->
+            <ImageView
+                android:id="@+id/collapseIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/expand_more_icon"
+                android:layout_marginStart="8dp"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+        <!-- Opening Hours Details (Collapsible) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/openingHoursRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/overviewOpeningHoursLayout"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:visibility="gone"/>
+
+        <!-- World Icon -->
+
+        <ImageView
+            android:id="@+id/worldIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/website_icon"
+            android:layout_below="@id/openingHoursRecyclerView"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp" />
+
+        <!-- Website Text (Clickable as a Link) -->
+        <TextView
+            android:id="@+id/overviewWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Website"
+            android:textSize="16sp"
+            android:layout_below="@id/openingHoursRecyclerView"
+            android:layout_toEndOf="@id/worldIcon"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:autoLink="web" />
+
+    </RelativeLayout>
+</ScrollView>

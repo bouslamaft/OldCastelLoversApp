@@ -9,6 +9,8 @@ public class Review {
     @SerializedName("relative_time_description")
     private String date;
     private String text;
+    @SerializedName("profile_photo_url")
+    private String profilePhotoUrl;
 
     public String getAuthorName() {
         return authorName;
@@ -24,5 +26,9 @@ public class Review {
 
     public String getText() {
         return text;
+    }
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
     }
 }

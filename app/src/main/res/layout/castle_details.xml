@@ -16,6 +16,18 @@
             android:layout_height="200dp"
             android:contentDescription="@string/app_name" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/photoTabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="10dp">
+
+        </com.google.android.material.tabs.TabLayout>
+
         <!-- Castle Name -->
         <TextView
             android:id="@+id/castleNameTextView"
