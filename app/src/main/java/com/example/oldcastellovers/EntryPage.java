@@ -9,6 +9,7 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -64,6 +65,8 @@ public class EntryPage extends AppCompatActivity {
     private Button dateButton;
     private TextView textViewCastleContent, textViewLocationContent, textViewWebsiteContent;
     private EditText largeTextInput;
+
+    public ArrayList<String> mediaPaths = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +132,7 @@ public class EntryPage extends AppCompatActivity {
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(EntryPage.this);
                 boolean success = dataBaseHelper.addDiaryEntry(diaryEntryModel);
                 Toast.makeText(EntryPage.this, "Success", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(EntryPage.this, "", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -410,6 +413,11 @@ public class EntryPage extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // Display a Toast with the full path of the taken picture
+            Toast.makeText(this, "Picture saved at: " + currentPhotoPath, Toast.LENGTH_SHORT).show();
+            // Log the full path to Logcat
+            Log.d("ImagePath", "Picture saved at: " + currentPhotoPath);
+            mediaPaths.add(currentPhotoPath);
             // The picture was taken and saved to currentMediaUri
             // Add the media item to the layout
             addMediaItemToLayout(currentMediaUri);
@@ -417,6 +425,10 @@ public class EntryPage extends AppCompatActivity {
             // Store the URI for future reference if needed
             currentMediaUris.add(currentMediaUri);
         } else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Video saved at: " + currentMediaUri.getPath(), Toast.LENGTH_SHORT).show();
+            // Log the full path to Logcat
+            Log.d("ImagePath", "Picture saved at: " + currentMediaUri);
+            mediaPaths.add(currentMediaUri.getPath().toString());
             // The video was taken and saved to currentMediaUri
             // Add the media item to the layout
 
@@ -425,5 +437,6 @@ public class EntryPage extends AppCompatActivity {
             // Store the URI for future reference if needed
             currentMediaUris.add(currentMediaUri);
         }
+        Log.d("Arraylist", "Content: " + mediaPaths);
     }
 }
