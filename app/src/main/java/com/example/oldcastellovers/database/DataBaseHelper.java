@@ -125,7 +125,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_DIARY_CASTLE_LOCATION, diaryEntryModel.getCastleLocation());
         cv.put(COLUMN_DIARY_CASTLE_WEBSITE, diaryEntryModel.getWebsite());
         cv.put(COLUMN_DIARY_NOTES, diaryEntryModel.getNotes());
-        cv.put(COLUMN_DIARY_MEDIAPATH, diaryEntryModel.getMediaPath());
+        cv.put(COLUMN_DIARY_MEDIAPATH, String.join(",", diaryEntryModel.getMediaPath()));
 
         long insert = db.insert(DIARY_ENTRY_TABLE, null, cv);
         if (insert == -1) {

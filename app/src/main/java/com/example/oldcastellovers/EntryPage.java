@@ -124,7 +124,7 @@ public class EntryPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleContent.getText().toString(), textViewLocationContent.getText().toString(), textViewWebsiteContent.getText().toString(), largeTextInput.getText().toString(),null);
+                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleContent.getText().toString(), textViewLocationContent.getText().toString(), textViewWebsiteContent.getText().toString(), largeTextInput.getText().toString(), mediaPaths);
                 }catch (Exception e){
                     Toast.makeText(EntryPage.this, "Error creating diary entry!!!", Toast.LENGTH_SHORT).show();
                 }
