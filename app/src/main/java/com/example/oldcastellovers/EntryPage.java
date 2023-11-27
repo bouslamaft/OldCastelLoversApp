@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.oldcastellovers.database.DataBaseHelper;
+import com.example.oldcastellovers.models.DiaryEntryModel;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,7 +47,7 @@ public class EntryPage extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_RECORD_AUDIO = 2;
     private static final int REQUEST_VIDEO_CAPTURE = 3;
-    private ImageView mediaPreview; // ImageView to display the taken media
+    private ImageView mediaPreview, saveIcon; // ImageView to display the taken media
     private MediaRecorder mediaRecorder;
     private boolean isRecording = false;
     private String audioFilePath;
@@ -58,6 +62,8 @@ public class EntryPage extends AppCompatActivity {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
+    private TextView textViewCastleContent, textViewLocationContent, textViewWebsiteContent;
+    private EditText largeTextInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +77,11 @@ public class EntryPage extends AppCompatActivity {
         String castleWebsite = intent.getStringExtra("castleWebsite");
 
         // Update TextView elements in entrypage.xml with castle details
-        TextView textViewCastleContent = findViewById(R.id.textViewCastleContent);
-        TextView textViewLocationContent = findViewById(R.id.textViewlocationContent);
-        TextView textViewWebsiteContent = findViewById(R.id.textViewWebsiteContent);
+        textViewCastleContent = findViewById(R.id.textViewCastleContent);
+        textViewLocationContent = findViewById(R.id.textViewlocationContent);
+        textViewWebsiteContent = findViewById(R.id.textViewWebsiteContent);
+        largeTextInput = findViewById(R.id.largeTextInput);
+        saveIcon = findViewById(R.id.saveIcon);
         textViewCastleContent.setText(castleName);
         textViewLocationContent.setText(castleAddress);
         textViewWebsiteContent.setText(castleWebsite);
@@ -94,19 +102,35 @@ public class EntryPage extends AppCompatActivity {
             showPopupMenu(attachmentIcon);
         });
 
-        ImageView saveIcon = findViewById(R.id.saveIcon);
-        saveIcon.setOnClickListener(v -> {
-            // Save the selected media items
-            for (Uri mediaUri : currentMediaUris) {
-                // Save the media to your local storage here
-                // You can use the mediaUri to access the media
-            }
-            // Clear the currentMediaUris list after saving
-            currentMediaUris.clear();
+        saveIcon = findViewById(R.id.saveIcon);
+//        saveIcon.setOnClickListener(v -> {
+//            // Save the selected media items
+//            for (Uri mediaUri : currentMediaUris) {
+//                // Save the media to your local storage here
+//                // You can use the mediaUri to access the media
+//            }
+//            // Clear the currentMediaUris list after saving
+//            currentMediaUris.clear();
+//
+//            // Clear the mediaLayout to remove all displayed media items
+//            LinearLayout mediaLayout = findViewById(R.id.mediaLayout);
+//            mediaLayout.removeAllViews();
+//        });
+        saveIcon.setOnClickListener(new View.OnClickListener() {
+            DiaryEntryModel diaryEntryModel;
+            @Override
+            public void onClick(View view) {
+                try {
+                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleContent.getText().toString(), textViewLocationContent.getText().toString(), textViewWebsiteContent.getText().toString(), largeTextInput.getText().toString(),null);
+                }catch (Exception e){
+                    Toast.makeText(EntryPage.this, "Error creating diary entry!!!", Toast.LENGTH_SHORT).show();
+                }
 
-            // Clear the mediaLayout to remove all displayed media items
-            LinearLayout mediaLayout = findViewById(R.id.mediaLayout);
-            mediaLayout.removeAllViews();
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(EntryPage.this);
+                boolean success = dataBaseHelper.addDiaryEntry(diaryEntryModel);
+                Toast.makeText(EntryPage.this, "Success", Toast.LENGTH_SHORT).show();
+
+            }
         });
     }
 

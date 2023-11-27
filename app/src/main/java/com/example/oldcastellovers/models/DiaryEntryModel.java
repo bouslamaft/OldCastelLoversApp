@@ -4,13 +4,20 @@ import java.util.Date;
 
 public class DiaryEntryModel {
     private int entryID;
-    private Date date;
+    private String date;
+    private String castleName;
+    private String castleLocation;
+    private String website;
     private String notes;
     private String mediaPath;
 
-    public DiaryEntryModel(int entryID, Date date, String notes, String mediaPath) {
+
+    public DiaryEntryModel(int entryID, String date, String castleName, String castleLocation, String website, String notes, String mediaPath) {
         this.entryID = entryID;
         this.date = date;
+        this.castleName = castleName;
+        this.castleLocation = castleLocation;
+        this.website = website;
         this.notes = notes;
         this.mediaPath = mediaPath;
     }
@@ -33,11 +40,11 @@ public class DiaryEntryModel {
         this.entryID = entryID;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -55,5 +62,29 @@ public class DiaryEntryModel {
 
     public void setMediaPath(String mediaPath) {
         this.mediaPath = mediaPath;
+    }
+
+    public String getCastleName() {
+        return castleName;
+    }
+
+    public void setCastleName(String castleName) {
+        this.castleName = castleName;
+    }
+
+    public String getCastleLocation() {
+        return castleLocation;
+    }
+
+    public void setCastleLocation(String castleLocation) {
+        this.castleLocation = castleLocation;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }
