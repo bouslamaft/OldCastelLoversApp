@@ -2,9 +2,11 @@ package com.example.oldcastellovers.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -13,7 +15,10 @@ import com.example.oldcastellovers.models.DiaryEntryModel;
 import com.example.oldcastellovers.models.LikedCastleModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.jar.JarOutputStream;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
@@ -33,33 +38,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DIARY_MEDIAPATH = "DIARY_MEDIAPATH";
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "oldCastle.db", null, 2);
+        super(context, "oldCastle.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createCastleTable = "CREATE TABLE " + LIKED_CASTLE_TABLE + " (" + COLUMN_ID + " TEXT PRIMARY KEY, " + COLUMN_CASTLE_NAME + " TEXT, " + COLUMN_CASTLE_ADDRESS + " TEXT, " + COLUMN_CASTLE_RATING + " INTEGER, " + COLUMN_CASTLE_PICTURE + " STRING)";
         //String createEntryTable = "CREATE TABLE " + DIARY_ENTRY_TABLE + " (" + COLUMN_ENTRY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DIARY_ENTRY_DATE + " TEXT, " + COLUMN_DIARY_CASTLE_NAME + " TEXT, " + COLUMN_DIARY_CASTLE_LOCATION + " TEXT, " + COLUMN_DIARY_CASTLE_WEBSITE + " TEXT, " + COLUMN_DIARY_NOTES + " TEXT, " + COLUMN_DIARY_MEDIAPATH + " TEXT)";
+        String createEntryTable = "CREATE TABLE " + DIARY_ENTRY_TABLE + " (" + COLUMN_ENTRY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DIARY_ENTRY_DATE + " TEXT, " + COLUMN_DIARY_CASTLE_NAME + " TEXT, " + COLUMN_DIARY_CASTLE_LOCATION + " TEXT, " + COLUMN_DIARY_CASTLE_WEBSITE + " TEXT, " + COLUMN_DIARY_NOTES + " TEXT, " + COLUMN_DIARY_MEDIAPATH + " TEXT)";
 
         sqLiteDatabase.execSQL(createCastleTable);
         //sqLiteDatabase.execSQL(createEntryTable);
+        sqLiteDatabase.execSQL(createEntryTable);
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
-        if (oldVersion < 2) {
-            String createEntryTable = "CREATE TABLE " + DIARY_ENTRY_TABLE + " (" + COLUMN_ENTRY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_DIARY_ENTRY_DATE + " TEXT, " + COLUMN_DIARY_CASTLE_NAME + " TEXT, " + COLUMN_DIARY_CASTLE_LOCATION + " TEXT, " + COLUMN_DIARY_CASTLE_WEBSITE + " TEXT, " + COLUMN_DIARY_NOTES + " TEXT, " + COLUMN_DIARY_MEDIAPATH + " TEXT)";
-            sqLiteDatabase.execSQL(createEntryTable);
-
-            oldVersion = 2;
-        }
-
-        sqLiteDatabase.setVersion(newVersion);
     }
 
-    public boolean addOne(LikedCastleModel likedCastleModel){
+    public boolean addOne(LikedCastleModel likedCastleModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -67,17 +67,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_CASTLE_NAME, likedCastleModel.getCastleName());
         cv.put(COLUMN_CASTLE_ADDRESS, likedCastleModel.getAddress());
         cv.put(COLUMN_CASTLE_RATING, likedCastleModel.getRating());
-        cv.put(COLUMN_CASTLE_PICTURE,likedCastleModel.getPhotoReference());
+        cv.put(COLUMN_CASTLE_PICTURE, likedCastleModel.getPhotoReference());
 
-        long insert = db.insert(LIKED_CASTLE_TABLE,null,cv);
+        long insert = db.insert(LIKED_CASTLE_TABLE, null, cv);
         if (insert == -1) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
-    public boolean deleteOne(LikedCastleModel likedCastleModel){
+    public boolean deleteOne(LikedCastleModel likedCastleModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         String whereClause = COLUMN_ID + " = ?";
         String[] whereArgs = {likedCastleModel.getPlaceId()};
@@ -89,25 +89,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return deletedRows > 0;
     }
 
-    public List<LikedCastleModel> getAll(){
+    public List<LikedCastleModel> getAll() {
         List<LikedCastleModel> returnList = new ArrayList<>();
 
         String queryString = "SELECT * FROM " + LIKED_CASTLE_TABLE;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
 
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 String placeId = cursor.getString(0);
                 String castleName = cursor.getString(1);
                 String castleAddress = cursor.getString(2);
                 Double castleRating = cursor.getDouble(3);
                 String castlePhotoReference = cursor.getString(4);
 
-                LikedCastleModel newlikedCastleModel = new LikedCastleModel(placeId, castleName,castleAddress, castleRating, castlePhotoReference);
+                LikedCastleModel newlikedCastleModel = new LikedCastleModel(placeId, castleName, castleAddress, castleRating, castlePhotoReference);
                 returnList.add(newlikedCastleModel);
-            }while (cursor.moveToNext());
-        }else {
+            } while (cursor.moveToNext());
+        } else {
             //Empty list
         }
 
@@ -116,7 +116,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public boolean addDiaryEntry(DiaryEntryModel diaryEntryModel){
+    public boolean addDiaryEntry(DiaryEntryModel diaryEntryModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -130,8 +130,69 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long insert = db.insert(DIARY_ENTRY_TABLE, null, cv);
         if (insert == -1) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
+
+    public List<DiaryEntryModel> getCastleDetailsWithMediaPath() {
+        List<DiaryEntryModel> returnList = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define the columns you want to retrieve
+        String[] columns = {
+                COLUMN_DIARY_CASTLE_NAME,
+                COLUMN_DIARY_CASTLE_LOCATION,
+                COLUMN_DIARY_ENTRY_DATE,
+                COLUMN_DIARY_MEDIAPATH
+        };
+
+        Cursor cursor = db.query(
+                DIARY_ENTRY_TABLE,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            do {
+                String castleName = cursor.getString(0);
+                String castleLocation = cursor.getString(1);
+                String entryDate = cursor.getString(2);
+                String mediaPathString = cursor.getString(3);
+                Log.d("abc", "castlename :"+castleName+" loc "+castleLocation+"entryDate"+entryDate+"mediaPathString"+mediaPathString);
+
+                ArrayList<String> mediaPath = new ArrayList<>(Arrays.asList(mediaPathString.split(",")));
+                Iterator<String> iterator = mediaPath.iterator();
+                while (iterator.hasNext()) {
+                    String path = iterator.next();
+                    if (path.endsWith(".mp4")) {
+                        iterator.remove();
+                    }
+                }
+                // Keep only the first element, remove others
+                if (mediaPath.size() > 1) {
+                    mediaPath.subList(1, mediaPath.size()).clear();
+
+                } else if (mediaPath.size()==0) {
+                    mediaPath.add(" ");
+                }
+                for (int i = 0; i < mediaPath.size(); i++) {
+                    Log.d("print list",mediaPath.get(i));
+                }
+                DiaryEntryModel entryDetails = new DiaryEntryModel(0, entryDate, castleName, castleLocation, null, null, mediaPath);
+                returnList.add(entryDetails);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+
 }
