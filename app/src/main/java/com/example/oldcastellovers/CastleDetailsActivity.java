@@ -95,7 +95,7 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         castleName = castle.getName();
         castleAddress = castle.getFormattedAddress();
         castleWebsite = castle.getWebsite();
-        if (castle.getPhotos() != null && !castle.getPhotos().isEmpty()){
+        if (castle.getPhotos() != null && !castle.getPhotos().isEmpty()) {
             for (Photo photo : castle.getPhotos()) {
                 photoReferenceList.add(photo.getReference());
             }
@@ -111,27 +111,27 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                 //LikedCastleModel likedCastleModel = new LikedCastleModel(castle.getPlaceId().toString(), castle.getName().toString(),castle.getFormattedAddress().toString(),null,1, castle.getRating(), null);
                 LikedCastleModel likedCastleModel;
 
-                likedCastleModel = new LikedCastleModel(castle.getPlaceId(),castle.getName(),castle.getFormattedAddress(),
-                        castle.getRating(),castle.getPhotos().get(0).getReference());
+                likedCastleModel = new LikedCastleModel(castle.getPlaceId(), castle.getName(), castle.getFormattedAddress(),
+                        castle.getRating(), castle.getPhotos().get(0).getReference());
 
                 //Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(CastleDetailsActivity.this);
 
                 boolean success = dataBaseHelper.addOne(likedCastleModel);
-                Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
-
-                if(success){
-                    Intent intent = new Intent(CastleDetailsActivity.this, LikedCastle.class);
-                    startActivity(intent);
+                if (success) {
+                    Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 }
+                Intent intent = new Intent(CastleDetailsActivity.this, LikedCastle.class);
+                startActivity(intent);
+
             }
         });
 
         createEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            // Check if castle details are available
+                // Check if castle details are available
                 // Create an intent to start EntryPageActivity
                 Intent intent = new Intent(CastleDetailsActivity.this, EntryPage.class);
 
