@@ -124,15 +124,21 @@ public class EntryPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleContent.getText().toString(), textViewLocationContent.getText().toString(), textViewWebsiteContent.getText().toString(), largeTextInput.getText().toString(),null);
+                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleContent.getText().toString(), textViewLocationContent.getText().toString(), textViewWebsiteContent.getText().toString(), largeTextInput.getText().toString(), mediaPaths);
                 }catch (Exception e){
                     Toast.makeText(EntryPage.this, "Error creating diary entry!!!", Toast.LENGTH_SHORT).show();
                 }
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(EntryPage.this);
                 boolean success = dataBaseHelper.addDiaryEntry(diaryEntryModel);
-                Toast.makeText(EntryPage.this, "Success", Toast.LENGTH_SHORT).show();
-                Toast.makeText(EntryPage.this, "", Toast.LENGTH_SHORT).show();
+
+                if(success){
+                    Toast.makeText(EntryPage.this, "Success", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(EntryPage.this, "Try Again", Toast.LENGTH_SHORT).show();
+                }
+                Intent intent = new Intent(EntryPage.this, DiaryEntryActivity.class);
+                startActivity(intent);
             }
         });
     }

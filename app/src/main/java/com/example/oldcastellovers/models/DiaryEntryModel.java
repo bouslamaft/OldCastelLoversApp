@@ -1,5 +1,6 @@
 package com.example.oldcastellovers.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DiaryEntryModel {
@@ -9,10 +10,10 @@ public class DiaryEntryModel {
     private String castleLocation;
     private String website;
     private String notes;
-    private String mediaPath;
+    private ArrayList<String> mediaPath;
 
 
-    public DiaryEntryModel(int entryID, String date, String castleName, String castleLocation, String website, String notes, String mediaPath) {
+    public DiaryEntryModel(int entryID, String date, String castleName, String castleLocation, String website, String notes, ArrayList<String> mediaPath) {
         this.entryID = entryID;
         this.date = date;
         this.castleName = castleName;
@@ -56,11 +57,11 @@ public class DiaryEntryModel {
         this.notes = notes;
     }
 
-    public String getMediaPath() {
+    public ArrayList<String> getMediaPath() {
         return mediaPath;
     }
 
-    public void setMediaPath(String mediaPath) {
+    public void setMediaPath(ArrayList<String> mediaPath) {
         this.mediaPath = mediaPath;
     }
 

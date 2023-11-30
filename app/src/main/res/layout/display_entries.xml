@@ -1,0 +1,92 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="false"
+    android:layout_margin="5dp"
+    android:background="@drawable/border_background"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="0dp">
+
+        <!-- Vertical LinearLayout for Image on the left side -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:background="@drawable/border_background">
+
+            <ImageView
+                android:id="@+id/photoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/photo_border"
+                android:padding="0dp"
+                app:cardCornerRadius="16dp"/>
+
+        </LinearLayout>
+
+
+        <!-- Vertical LinearLayout for TextViews on the right side -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp">
+
+            <!-- TextViews to display castle details -->
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Castle Name"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textColor="#333333" />
+
+            <TextView
+                android:id="@+id/addressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Castle Address"
+                android:textSize="14sp"
+                android:layout_marginBottom="8dp"
+                android:textColor="#666666" />
+
+            <!-- Rating stars and rating number -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/entryDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="01-01-2001"
+                    android:layout_marginTop="-3dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#333333" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
