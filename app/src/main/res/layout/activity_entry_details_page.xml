@@ -13,7 +13,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/baseline_check_24" />
+        android:src="@drawable/castle_icon" />
 
     <!-- Screen Title -->
     <TextView
@@ -56,7 +56,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:contentDescription="Castle"
-            android:src="@drawable/baseline_castle_24"
+            android:src="@drawable/castle_icon"
             android:layout_alignParentStart="true" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:contentDescription="Location"
-            android:src="@drawable/baseline_place_24"
+            android:src="@drawable/location_icon"
             android:layout_alignParentStart="true" />
 
         <TextView
