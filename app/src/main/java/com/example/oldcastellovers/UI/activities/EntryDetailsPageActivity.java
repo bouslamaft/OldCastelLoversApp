@@ -1,27 +1,15 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.example.oldcastellovers.models.DiaryEntryModel;
+import com.example.oldcastellovers.R;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-public class EntryDetailsPage extends AppCompatActivity {
+public class EntryDetailsPageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
