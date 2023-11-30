@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Check Icon for Save -->
+    <ImageView
+        android:id="@+id/saveIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Save"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_check_24" />
+
+    <!-- Screen Title -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CASTLE JOURNEY ENTRY"
+        android:textSize="24sp"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/saveIcon"
+        android:layout_marginTop="16dp" />
+
+    <!-- DatePicker -->
+    <Button
+        android:id="@+id/datePickerButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="JAN 01 2020"
+        android:textSize="18sp"
+        android:fontFamily="serif-monospace"
+        android:textColor="@android:color/black"
+        style="?android:spinnerStyle"
+        android:layout_below="@id/textViewTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:onClick="openDatePicker" />
+
+    <!-- Castle Name with an icon (e.g., castle icon) -->
+    <RelativeLayout
+        android:id="@+id/castleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datePickerButton"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/castleIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Castle"
+            android:src="@drawable/baseline_castle_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewCastleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Castle Name:"
+            android:fontFamily="serif-monospace"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/castleIcon"
+            android:layout_alignBaseline="@id/castleIcon"
+            android:layout_marginStart="8dp" />
+
+        <!-- New TextView for Castle Content -->
+        <TextView
+            android:id="@+id/textViewCastleContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCastleName"
+            android:layout_marginTop="8dp"
+            android:text="Castle Content Goes Here" />
+    </RelativeLayout>
+
+    <!-- Location with an icon (e.g., location icon) -->
+    <RelativeLayout
+        android:id="@+id/locationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/castleLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Location"
+            android:src="@drawable/baseline_place_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location:"
+            android:textSize="16sp"
+            android:fontFamily="serif-monospace"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/locationIcon"
+            android:layout_alignBaseline="@id/locationIcon"
+            android:layout_marginStart="8dp" />
+
+        <!-- New TextView for location Content -->
+        <TextView
+            android:id="@+id/textViewlocationContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewLocation"
+            android:layout_marginTop="8dp"
+            android:text="location Content Goes Here" />
+    </RelativeLayout>
+
+    <!-- Website with an icon (e.g., website icon) -->
+    <RelativeLayout
+        android:id="@+id/websiteLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationLayout"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/websiteIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="Website"
+            android:src="@drawable/baseline_web_24"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/textViewWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Website:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="serif-monospace"
+            android:layout_toEndOf="@id/websiteIcon"
+            android:layout_alignBaseline="@id/websiteIcon"
+            android:layout_marginStart="8dp" />
+
+        <!-- New TextView for Castle Content -->
+        <TextView
+            android:id="@+id/textViewWebsiteContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewWebsite"
+            android:layout_marginTop="8dp"
+            android:text="Castle Content Goes Here" />
+    </RelativeLayout>
+
+    <!-- GPS Coordinates with an icon (e.g., GPS icon) -->
+
+    <!-- Large Text Input Box -->
+    <TextView
+        android:id="@+id/DisplayTexts"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/websiteLayout"
+        android:layout_marginTop="16dp"
+        android:hint=""
+        android:inputType="textMultiLine"
+        android:background="@android:color/background_light" />
+    <!-- Add a layout to display pictures and videos -->
+
+    <!-- Scroll View for Media -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DisplayTexts"
+        android:layout_marginTop="16dp">
+
+        <!-- Linear Layout to hold media elements (pictures and videos) -->
+        <LinearLayout
+            android:id="@+id/mediaLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Add your media elements (e.g., ImageViews or VideoViews) here -->
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</RelativeLayout>
