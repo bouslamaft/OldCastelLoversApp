@@ -1,4 +1,4 @@
-package com.example.oldcastellovers.models;
+package com.example.oldcastellovers.database.models;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,16 +21,6 @@ public class DiaryEntryModel {
         this.website = website;
         this.notes = notes;
         this.mediaPath = mediaPath;
-    }
-
-    @Override
-    public String toString() {
-        return "DiaryEntryModel{" +
-                "entryID=" + entryID +
-                ", date=" + date +
-                ", notes='" + notes + '\'' +
-                ", mediaPath='" + mediaPath + '\'' +
-                '}';
     }
 
     public int getEntryID() {

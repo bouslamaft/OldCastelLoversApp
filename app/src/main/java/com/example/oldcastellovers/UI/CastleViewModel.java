@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.oldcastellovers.model.Castle;
+import com.example.oldcastellovers.network.dto.CastleDTO;
 
 public class CastleViewModel extends ViewModel {
-    private MutableLiveData<Castle> castleLiveData = new MutableLiveData<>();
+    private MutableLiveData<CastleDTO> castleLiveData = new MutableLiveData<>();
 
-    public void setCastle(Castle castle) {
-        castleLiveData.setValue(castle);
+    public void setCastle(CastleDTO castleDTO) {
+        castleLiveData.setValue(castleDTO);
     }
 
-    public LiveData<Castle> getCastle() {
+    public LiveData<CastleDTO> getCastle() {
         return castleLiveData;
     }
 }

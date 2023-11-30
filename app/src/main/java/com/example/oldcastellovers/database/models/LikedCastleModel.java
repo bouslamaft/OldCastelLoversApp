@@ -1,4 +1,4 @@
-package com.example.oldcastellovers.models;
+package com.example.oldcastellovers.database.models;
 
 public class LikedCastleModel {
     private String placeId;

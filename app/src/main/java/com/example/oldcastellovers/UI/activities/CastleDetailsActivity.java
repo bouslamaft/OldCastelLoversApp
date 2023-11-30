@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.oldcastellovers.network.dto.CastleDTO;
+import com.example.oldcastellovers.network.dto.PhotoDTO;
+import com.example.oldcastellovers.network.CastleService;
+import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.CastleViewModel;
 import com.example.oldcastellovers.UI.adapters.PhotoPagerAdapter;
 import com.example.oldcastellovers.UI.adapters.ReviewAdapter;
@@ -20,11 +24,8 @@ import com.example.oldcastellovers.UI.fragments.AboutFragment;
 import com.example.oldcastellovers.UI.fragments.OverviewFragment;
 import com.example.oldcastellovers.UI.fragments.ReviewsFragment;
 import com.example.oldcastellovers.database.DataBaseHelper;
-import com.example.oldcastellovers.model.Castle;
-import com.example.oldcastellovers.model.CastleModel;
-import com.example.oldcastellovers.model.Photo;
-import com.example.oldcastellovers.model.Review;
-import com.example.oldcastellovers.models.LikedCastleModel;
+import com.example.oldcastellovers.network.dto.ReviewDTO;
+import com.example.oldcastellovers.database.models.LikedCastleModel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.List;
 public class CastleDetailsActivity extends AppCompatActivity implements CastleService.CastleDetailsCallback {
 
     private CastleService castleService = new CastleService();
-    private Castle castle;
+    private CastleDTO castleDTO;
     ViewPager photoViewPager;
     TextView castleNameTextView;
     PhotoPagerAdapter photoPagerAdapter;
@@ -46,18 +47,15 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     private TabLayout photoTablayout;
     private ReviewsFragment reviewsFragment;
     List<String> photoReferenceList = new ArrayList<>();
-    private List<Review> reviewList = new ArrayList();
+    private List<ReviewDTO> reviewDTOList = new ArrayList();
     private TabAdapter tabAdapter;
     private CastleViewModel viewModel;
-
-    private String castleName;
-    private String castleAddress;
-    private String castleWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.castle_details);
+
         String placeId = getIntent().getStringExtra("placeId");
 
         photoViewPager = findViewById(R.id.photoViewPager);
@@ -75,45 +73,33 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
 
         viewModel = new ViewModelProvider(this).get(CastleViewModel.class);
 
-        castle = castleService.getCastleDetails(placeId, this);
+        castleDTO = castleService.getCastleDetails(placeId, this);
 
         setupViewPager();
     }
 
     @Override
-    public void onCastleDetailsFetched(Castle castle) {
-        castleNameTextView.setText(castle.getName());
-        ratingBar.setRating((float) castle.getRating());
+    public void onCastleDetailsFetched(CastleDTO castleDTO) {
+        castleNameTextView.setText(castleDTO.getName());
+        ratingBar.setRating((float) castleDTO.getRating());
 
         //setting the castle object to the ViewModel in order to get the live object inside of the fragment class.
-        viewModel.setCastle(castle);
+        viewModel.setCastle(castleDTO);
 
-        for (Photo photo : castle.getPhotos()) {
-            photoReferenceList.add(photo.getReference());
-        }
-        // fields to transfer to new entry screen.
-        castleName = castle.getName();
-        castleAddress = castle.getFormattedAddress();
-        castleWebsite = castle.getWebsite();
-        if (castle.getPhotos() != null && !castle.getPhotos().isEmpty()) {
-            for (Photo photo : castle.getPhotos()) {
-                photoReferenceList.add(photo.getReference());
+        if (castleDTO.getPhotos() != null && !castleDTO.getPhotos().isEmpty()) {
+            for (PhotoDTO photoDTO : castleDTO.getPhotos()) {
+                photoReferenceList.add(photoDTO.getReference());
             }
-
         }
-
         photoPagerAdapter.notifyDataSetChanged();
         tabAdapter.notifyDataSetChanged();
 
         bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //LikedCastleModel likedCastleModel = new LikedCastleModel(castle.getPlaceId().toString(), castle.getName().toString(),castle.getFormattedAddress().toString(),null,1, castle.getRating(), null);
-                LikedCastleModel likedCastleModel;
 
-                likedCastleModel = new LikedCastleModel(castle.getPlaceId(), castle.getName(), castle.getFormattedAddress(),
-                        castle.getRating(), castle.getPhotos().get(0).getReference());
-
+                LikedCastleModel likedCastleModel = new LikedCastleModel(castleDTO.getPlaceId(), castleDTO.getName(), castleDTO.getFormattedAddress(),
+                        castleDTO.getRating(), castleDTO.getPhotos().get(0).getReference());
                 //Toast.makeText(CastleDetailsActivity.this, "Castle not bookmarked!!!! \n TRY AGAIN", Toast.LENGTH_SHORT).show();
 
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(CastleDetailsActivity.this);
@@ -122,7 +108,7 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
                 if (success) {
                     Toast.makeText(CastleDetailsActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(CastleDetailsActivity.this, LikedCastle.class);
+                Intent intent = new Intent(CastleDetailsActivity.this, LikedCastleActivity.class);
                 startActivity(intent);
 
             }
@@ -133,12 +119,12 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
             public void onClick(View view) {
                 // Check if castle details are available
                 // Create an intent to start EntryPageActivity
-                Intent intent = new Intent(CastleDetailsActivity.this, EntryPage.class);
+                Intent intent = new Intent(CastleDetailsActivity.this, EntryPageActivity.class);
 
                 // Pass castle details to EntryPageActivity
-                intent.putExtra("castleName", castle.getName());
-                intent.putExtra("castleAddress", castle.getFormattedAddress());
-                intent.putExtra("castleWebsite", castle.getWebsite());
+                intent.putExtra("castleName", castleDTO.getName());
+                intent.putExtra("castleAddress", castleDTO.getFormattedAddress());
+                intent.putExtra("castleWebsite", castleDTO.getWebsite());
 
                 // Start EntryPageActivity
                 startActivity(intent);

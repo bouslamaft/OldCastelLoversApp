@@ -2,7 +2,6 @@ package com.example.oldcastellovers.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -10,15 +9,13 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.example.oldcastellovers.model.CastleModel;
-import com.example.oldcastellovers.models.DiaryEntryModel;
-import com.example.oldcastellovers.models.LikedCastleModel;
+import com.example.oldcastellovers.database.models.DiaryEntryModel;
+import com.example.oldcastellovers.database.models.LikedCastleModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.jar.JarOutputStream;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 

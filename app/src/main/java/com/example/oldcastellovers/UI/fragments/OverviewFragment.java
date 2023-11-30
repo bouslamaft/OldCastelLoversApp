@@ -13,20 +13,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.oldcastellovers.CastleDetailsActivity;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.CastleViewModel;
 import com.example.oldcastellovers.UI.adapters.OverviewAdapter;
-import com.example.oldcastellovers.model.Castle;
+import com.example.oldcastellovers.network.dto.CastleDTO;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class OverviewFragment extends Fragment {
 
@@ -37,7 +33,7 @@ public class OverviewFragment extends Fragment {
     private LinearLayout websiteLayout;
     private CastleViewModel viewModel;
     private boolean openingHoursVisible = false;
-    private Castle _castle;
+    private CastleDTO _castleDTO;
     private RecyclerView recyclerView;
     private ImageView collapseIcon;
 
@@ -66,12 +62,12 @@ public class OverviewFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(CastleViewModel.class);
 
-        viewModel.getCastle().observe(getViewLifecycleOwner(), new Observer<Castle>() {
+        viewModel.getCastle().observe(getViewLifecycleOwner(), new Observer<CastleDTO>() {
             @Override
-            public void onChanged(Castle castle) {
-                if (castle != null) {
-                    _castle = castle;
-                    updateUI(castle);
+            public void onChanged(CastleDTO castleDTO) {
+                if (castleDTO != null) {
+                    _castleDTO = castleDTO;
+                    updateUI(castleDTO);
                 } else {
                     // Handle the case when data is null or not available
                 }
@@ -79,14 +75,14 @@ public class OverviewFragment extends Fragment {
         });
     }
 
-    private void updateUI(Castle castle) {
-        addressTextView.setText(castle.getFormattedAddress());
-        websiteTextView.setText(castle.getWebsite() != null ? castle.getWebsite() : castle.getUrl());
+    private void updateUI(CastleDTO castleDTO) {
+        addressTextView.setText(castleDTO.getFormattedAddress());
+        websiteTextView.setText(castleDTO.getWebsite() != null ? castleDTO.getWebsite() : castleDTO.getUrl());
 
 
-        if (castle.getCurrentOpeningHours() != null){
+        if (castleDTO.getCurrentOpeningHours() != null){
             String openNow;
-            if ((Boolean) castle.getCurrentOpeningHours().get("open_now")){
+            if ((Boolean) castleDTO.getCurrentOpeningHours().get("open_now")){
                 openNow = "Open Now";
             }else
                 openNow = "Closed Now";
@@ -94,7 +90,7 @@ public class OverviewFragment extends Fragment {
             openingHoursTextView.setText(openNow);
 
 
-            OverviewAdapter adapter = new OverviewAdapter((List<String>) castle.getCurrentOpeningHours().get("weekday_text"));
+            OverviewAdapter adapter = new OverviewAdapter((List<String>) castleDTO.getCurrentOpeningHours().get("weekday_text"));
             recyclerView.setAdapter(adapter);
             openingHoursLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

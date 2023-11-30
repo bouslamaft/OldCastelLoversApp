@@ -1,5 +1,4 @@
 package com.example.oldcastellovers.UI.adapters;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.oldcastellovers.BuildConfig;
 import com.example.oldcastellovers.R;
-import com.example.oldcastellovers.model.Review;
+import com.example.oldcastellovers.network.dto.ReviewDTO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
-    private List<Review> reviewList;
+    private List<ReviewDTO> reviewDTOList;
 
-    public void setReviewList(List<Review> reviewList) {
-        this.reviewList = reviewList;
+    public void setReviewList(List<ReviewDTO> reviewDTOList) {
+        this.reviewDTOList = reviewDTOList;
         notifyDataSetChanged();
     }
 
@@ -33,19 +31,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Review review = reviewList.get(position);
+        ReviewDTO reviewDTO = reviewDTOList.get(position);
 
         Picasso.get()
-                .load(review.getProfilePhotoUrl())
+                .load(reviewDTO.getProfilePhotoUrl())
                 .placeholder(R.drawable.default_avatar)
                 .into(holder.authorAvatarImageView);
 
-        holder.bind(review);
+        holder.bind(reviewDTO);
     }
 
     @Override
     public int getItemCount() {
-        return reviewList != null ? reviewList.size() : 0;
+        return reviewDTOList != null ? reviewDTOList.size() : 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,13 +64,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             authorAvatarImageView = itemView.findViewById(R.id.authorAvatarImageView);
         }
 
-        public void bind(Review review) {
+        public void bind(ReviewDTO reviewDTO) {
             // Bind data to your views here
-            authorNameTextView.setText(review.getAuthorName());
-            reviewRatingBar.setRating(review.getRating());
-            reviewDateTextView.setText(review.getDate());
-            reviewTextView.setText(review.getText());
-            reviewRatingNumberTextView.setText(String.valueOf(review.getRating()));
+            authorNameTextView.setText(reviewDTO.getAuthorName());
+            reviewRatingBar.setRating(reviewDTO.getRating());
+            reviewDateTextView.setText(reviewDTO.getDate());
+            reviewTextView.setText(reviewDTO.getText());
+            reviewRatingNumberTextView.setText(String.valueOf(reviewDTO.getRating()));
         }
     }
 }

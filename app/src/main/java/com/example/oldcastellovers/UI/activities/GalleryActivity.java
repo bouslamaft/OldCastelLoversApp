@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.oldcastellovers.UI.adapters.GalleryAdapter;
+import com.example.oldcastellovers.UI.GalleryItem;
+import com.example.oldcastellovers.UI.MediaGalleryItem;
+import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.UI.VideoGalleryItem;
 
 import java.io.File;
 import java.util.ArrayList;

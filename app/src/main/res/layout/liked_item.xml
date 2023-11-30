@@ -46,7 +46,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="5dp">
 
-            <!-- TextViews to display castle details -->
+            <!-- TextViews to display castleDTO details -->
             <TextView
                 android:id="@+id/nameTextView"
                 android:layout_width="match_parent"

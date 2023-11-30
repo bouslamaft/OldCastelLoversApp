@@ -1,8 +1,8 @@
-package com.example.oldcastellovers.model;
+package com.example.oldcastellovers.network.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Review {
+public class ReviewDTO {
     @SerializedName("author_name")
     private String authorName;
     private int rating;

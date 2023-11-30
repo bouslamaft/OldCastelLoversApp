@@ -1,4 +1,4 @@
-package com.example.oldcastellovers.models;
+package com.example.oldcastellovers.database.models;
 
 import java.util.Date;
 

@@ -12,17 +12,17 @@ import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.oldcastellovers.BuildConfig;
-import com.example.oldcastellovers.CastleDetailsActivity;
+import com.example.oldcastellovers.UI.activities.CastleDetailsActivity;
 import com.example.oldcastellovers.R;
-import com.example.oldcastellovers.model.CastleModel;
+import com.example.oldcastellovers.network.dto.CastleDTO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleViewHolder> {
-    private List<CastleModel> castleList;
+    private List<CastleDTO> castleList;
 
-    public CastleAdapter(List<CastleModel> castleList) {
+    public CastleAdapter(List<CastleDTO> castleList) {
         this.castleList = castleList;
     }
 
@@ -34,7 +34,7 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
 
     @Override
     public void onBindViewHolder(CastleViewHolder holder, int position) {
-        CastleModel castle = castleList.get(position);
+        CastleDTO castle = castleList.get(position);
 
         String reference = castle.getPhotos() == null ? "" : castle.getPhotos().get(0).getReference();
 

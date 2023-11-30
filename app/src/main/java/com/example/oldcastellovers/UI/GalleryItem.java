@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI;
 
 public class GalleryItem extends MediaGalleryItem {
     private String imagePath;

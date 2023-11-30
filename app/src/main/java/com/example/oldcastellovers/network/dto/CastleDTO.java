@@ -1,12 +1,11 @@
-package com.example.oldcastellovers.model;
+package com.example.oldcastellovers.network.dto;
 
-import com.example.oldcastellovers.model.Photo;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Castle {
+public class CastleDTO {
     @SerializedName("formatted_address")
     private String formattedAddress;
     private String name;
@@ -14,13 +13,13 @@ public class Castle {
     private String placeId;
     private double rating;
     private String url;
-    private ArrayList<Photo> photos;
+    private ArrayList<PhotoDTO> photos;
     @SerializedName("user_ratings_total")
     private int userRatingTotal;
     @SerializedName("wheelchair_accessible_entrance")
     private boolean wheelchairAccessibleEntrance;
     private String website;
-    private ArrayList<Review> reviews;
+    private ArrayList<ReviewDTO> reviews;
     @SerializedName("editorial_summary")
     private Map<String,String> editorialSummary;
     @SerializedName("current_opening_hours")
@@ -50,7 +49,7 @@ public class Castle {
         return url;
     }
 
-    public ArrayList<Photo> getPhotos() {
+    public ArrayList<PhotoDTO> getPhotos() {
         return photos;
     }
     public int getUserRatingTotal() {
@@ -65,7 +64,7 @@ public class Castle {
         return website;
     }
 
-    public ArrayList<Review> getReviews() {
+    public ArrayList<ReviewDTO> getReviews() {
         return reviews;
     }
 

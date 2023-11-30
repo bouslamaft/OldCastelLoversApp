@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,16 +9,18 @@ import android.os.Bundle;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.oldcastellovers.network.CastleService;
+import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.adapters.CastleAdapter;
-import com.example.oldcastellovers.model.CastleModel;
+import com.example.oldcastellovers.network.dto.CastleDTO;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CastleService.CastlesCallback {
+public class HomePageActivity extends AppCompatActivity implements CastleService.CastlesCallback {
     private TextInputEditText searchBarEditText;
-    private RecyclerView recyclerView;
-    private ArrayList<CastleModel> castleList = new ArrayList<>();
+    private RecyclerView castleRecyclerView;
+    private ArrayList<CastleDTO> castleList = new ArrayList<>();
     private CastleService castleService = new CastleService();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,10 @@ public class MainActivity extends AppCompatActivity implements CastleService.Cas
         setContentView(R.layout.home_page);
 
         searchBarEditText = findViewById(R.id.search_bar);
-        recyclerView = findViewById(R.id.castles_recycler_view);
+        castleRecyclerView = findViewById(R.id.castles_recycler_view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        castleRecyclerView.setLayoutManager(layoutManager);
 
 
         searchBarEditText.setOnEditorActionListener((v, actionId, event) -> {
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements CastleService.Cas
     }
 
     @Override
-    public void onCastlesFetched(ArrayList<CastleModel> castleList) {
+    public void onCastlesFetched(ArrayList<CastleDTO> castleList) {
         updateUIWithCastles(castleList);
     }
 
@@ -62,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements CastleService.Cas
     public void onError(String errorMessage) {
         //TODO error handling
     }
-    private void updateUIWithCastles(ArrayList<CastleModel> castleList) {
+    private void updateUIWithCastles(ArrayList<CastleDTO> castleList) {
         CastleAdapter adapter = new CastleAdapter(castleList);
-        recyclerView.setAdapter(adapter);
+        castleRecyclerView.setAdapter(adapter);
     }
 }

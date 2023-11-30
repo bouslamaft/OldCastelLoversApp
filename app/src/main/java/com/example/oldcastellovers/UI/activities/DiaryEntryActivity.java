@@ -1,15 +1,15 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.oldcastellovers.UI.adapters.DiaryEntryAdapter;
+import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.database.DataBaseHelper;
-import com.example.oldcastellovers.models.DiaryEntryModel;
-import com.example.oldcastellovers.models.LikedCastleModel;
+import com.example.oldcastellovers.database.models.DiaryEntryModel;
 
 import java.util.List;
 
@@ -31,7 +31,6 @@ public class DiaryEntryActivity extends AppCompatActivity {
 
         List<DiaryEntryModel> diaryEntryModels = dataBaseHelper.getCastleDetailsWithMediaPath();
 
-        // Create and set up the adapter
         adapter = new DiaryEntryAdapter(this, diaryEntryModels);
         entryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         entryRecyclerView.setAdapter(adapter);

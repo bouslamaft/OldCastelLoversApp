@@ -14,7 +14,7 @@
             android:id="@+id/locationIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/address_icon"
+            android:src="@drawable/location_icon"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp" />
 

@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.CastleViewModel;
 import com.example.oldcastellovers.UI.adapters.ReviewAdapter;
-import com.example.oldcastellovers.model.Castle;
-
-import java.util.List;
+import com.example.oldcastellovers.network.dto.CastleDTO;
 
 public class ReviewsFragment extends Fragment {
 
@@ -41,17 +39,17 @@ public class ReviewsFragment extends Fragment {
         reviewsRecyclerView.setAdapter(reviewAdapter);
 
         // Observe the review list in the ViewModel
-        viewModel.getCastle().observe(getViewLifecycleOwner(), new Observer<Castle>() {
+        viewModel.getCastle().observe(getViewLifecycleOwner(), new Observer<CastleDTO>() {
             @Override
-            public void onChanged(Castle castle) {
-                updateUI(castle);
+            public void onChanged(CastleDTO castleDTO) {
+                updateUI(castleDTO);
             }
         });
 
         return view;
     }
 
-    private void updateUI(Castle castle) {
-        reviewAdapter.setReviewList(castle.getReviews());
+    private void updateUI(CastleDTO castleDTO) {
+        reviewAdapter.setReviewList(castleDTO.getReviews());
     }
 }

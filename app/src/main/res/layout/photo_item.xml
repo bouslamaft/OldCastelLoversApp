@@ -10,6 +10,6 @@
         android:background="@drawable/photo_border"
         />
 
-    <!-- You can add other views or elements over the photo here if needed -->
+    <!-- You can add other views or elements over the photoDTO here if needed -->
 
 </FrameLayout>

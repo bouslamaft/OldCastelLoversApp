@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.oldcastellovers.model.CastleModel;
-import com.example.oldcastellovers.models.LikedCastleModel;
+import com.example.oldcastellovers.BuildConfig;
+import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.UI.activities.CastleDetailsActivity;
+import com.example.oldcastellovers.database.models.LikedCastleModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleViewHolder> {
+public class LikedCastleAdapter extends RecyclerView.Adapter<LikedCastleAdapter.CastleViewHolder> {
 
     private Context context;
     private static List<LikedCastleModel> likedCastleModels;
@@ -31,19 +33,16 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
     public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
         this.onDeleteClickListener = onDeleteClickListener;
     }
-//    public interface OnDeleteClickListener {
-//        void onDeleteClick(CastleModel castleModel);
-//    }
 
-    public CastleAdapter(Context context, List<LikedCastleModel> likedCastleModels) {
+    public LikedCastleAdapter(Context context, List<LikedCastleModel> likedCastleModels) {
         this.context = context;
-        this.likedCastleModels = likedCastleModels;
+        LikedCastleAdapter.likedCastleModels = likedCastleModels;
     }
 
     @NonNull
     @Override
     public CastleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.liked_tem, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.liked_item, parent, false);
         return new CastleViewHolder(view);
     }
 
@@ -93,7 +92,6 @@ public class CastleAdapter extends RecyclerView.Adapter<CastleAdapter.CastleView
         TextView addressTextView;
         RatingBar ratingBar;
         TextView ratingNumberTextView;
-
         ImageButton deleteIcon;
 
         public CastleViewHolder(@NonNull View itemView) {

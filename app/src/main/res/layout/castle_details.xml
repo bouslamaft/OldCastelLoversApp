@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Castle Photos (you can use a ViewPager or RecyclerView to display multiple photos) -->
+        <!-- Castle Photos (you can use a ViewPager or RecyclerView to display multiple photoDTOS) -->
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/photoViewPager"
             android:layout_width="match_parent"

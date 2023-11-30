@@ -1,10 +1,12 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.oldcastellovers.R;
 
 public class VideoViewActivity extends AppCompatActivity {
 

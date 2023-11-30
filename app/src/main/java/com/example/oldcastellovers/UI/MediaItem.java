@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI;
 
 public class MediaItem {
     private String filePath;

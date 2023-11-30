@@ -1,8 +1,8 @@
-package com.example.oldcastellovers.model;
+package com.example.oldcastellovers.network.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Photo {
+public class PhotoDTO {
 
     private int height;
     private int weight;

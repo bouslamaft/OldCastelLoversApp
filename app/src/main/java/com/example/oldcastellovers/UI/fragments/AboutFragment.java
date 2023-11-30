@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.CastleViewModel;
-import com.example.oldcastellovers.model.Castle;
+import com.example.oldcastellovers.network.dto.CastleDTO;
 
 public class AboutFragment extends Fragment {
 
@@ -35,20 +35,20 @@ public class AboutFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(CastleViewModel.class);
 
-        viewModel.getCastle().observe(getViewLifecycleOwner(), new Observer<Castle>() {
+        viewModel.getCastle().observe(getViewLifecycleOwner(), new Observer<CastleDTO>() {
             @Override
-            public void onChanged(Castle castle) {
-                accessibilityIcon.setImageResource(castle.isWheelchairAccessibleEntrance() ? R.drawable.done_icon: R.drawable.block_icon);
-                updateUI(castle);
+            public void onChanged(CastleDTO castleDTO) {
+                accessibilityIcon.setImageResource(castleDTO.isWheelchairAccessibleEntrance() ? R.drawable.done_icon: R.drawable.block_icon);
+                updateUI(castleDTO);
             }
         });
 
         return view;
     }
 
-    private void updateUI(Castle castle) {
-        if (castle.getEditorialSummary() != null) {
-            summaryText.setText(castle.getEditorialSummary().get("overview"));
+    private void updateUI(CastleDTO castleDTO) {
+        if (castleDTO.getEditorialSummary() != null) {
+            summaryText.setText(castleDTO.getEditorialSummary().get("overview"));
         }
         else {
             summaryText.setVisibility(View.GONE);

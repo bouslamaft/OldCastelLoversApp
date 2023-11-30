@@ -1,11 +1,10 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,8 +28,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.database.DataBaseHelper;
-import com.example.oldcastellovers.models.DiaryEntryModel;
+import com.example.oldcastellovers.database.models.DiaryEntryModel;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -40,18 +40,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
-
-
-public class EntryPage extends AppCompatActivity {
+public class EntryPageActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_RECORD_AUDIO = 2;
     private static final int REQUEST_VIDEO_CAPTURE = 3;
-    private ImageView mediaPreview, saveIcon; // ImageView to display the taken media
-    private MediaRecorder mediaRecorder;
+    private ImageView saveIcon; // ImageView to display the taken media
     private boolean isRecording = false;
-    private String audioFilePath;
     private String currentPhotoPath;
     private Uri currentMediaUri; // Store the URI of the captured media
 
@@ -63,7 +58,7 @@ public class EntryPage extends AppCompatActivity {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
-    private TextView textViewCastleContent, textViewLocationContent, textViewWebsiteContent;
+    private TextView textViewCastleName, textViewLocation, textViewWebsite;
     private EditText largeTextInput;
 
     public ArrayList<String> mediaPaths = new ArrayList<>();
@@ -79,15 +74,15 @@ public class EntryPage extends AppCompatActivity {
         String castleAddress = intent.getStringExtra("castleAddress");
         String castleWebsite = intent.getStringExtra("castleWebsite");
 
-        // Update TextView elements in entrypage.xml with castle details
-        textViewCastleContent = findViewById(R.id.textViewCastleContent);
-        textViewLocationContent = findViewById(R.id.textViewlocationContent);
-        textViewWebsiteContent = findViewById(R.id.textViewWebsiteContent);
+        textViewCastleName = findViewById(R.id.textViewCastleName);
+        textViewLocation = findViewById(R.id.textViewLocation);
+        textViewWebsite = findViewById(R.id.textViewWebsite);
         largeTextInput = findViewById(R.id.largeTextInput);
         saveIcon = findViewById(R.id.saveIcon);
-        textViewCastleContent.setText(castleName);
-        textViewLocationContent.setText(castleAddress);
-        textViewWebsiteContent.setText(castleWebsite);
+
+        textViewCastleName.setText(castleName);
+        textViewLocation.setText(castleAddress);
+        textViewWebsite.setText(castleWebsite);
 
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
@@ -124,20 +119,20 @@ public class EntryPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleContent.getText().toString(), textViewLocationContent.getText().toString(), textViewWebsiteContent.getText().toString(), largeTextInput.getText().toString(), mediaPaths);
+                    diaryEntryModel = new DiaryEntryModel(-1, dateButton.getText().toString(),textViewCastleName.getText().toString(), textViewLocation.getText().toString(), textViewWebsite.getText().toString(), largeTextInput.getText().toString(), mediaPaths);
                 }catch (Exception e){
-                    Toast.makeText(EntryPage.this, "Error creating diary entry!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntryPageActivity.this, "Error creating diary entry!!!", Toast.LENGTH_SHORT).show();
                 }
 
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(EntryPage.this);
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(EntryPageActivity.this);
                 boolean success = dataBaseHelper.addDiaryEntry(diaryEntryModel);
 
                 if(success){
-                    Toast.makeText(EntryPage.this, "Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntryPageActivity.this, "Success", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(EntryPage.this, "Try Again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EntryPageActivity.this, "Try Again", Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(EntryPage.this, DiaryEntryActivity.class);
+                Intent intent = new Intent(EntryPageActivity.this, DiaryEntryActivity.class);
                 startActivity(intent);
             }
         });
@@ -174,7 +169,6 @@ public class EntryPage extends AppCompatActivity {
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
         datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-        //datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
 
     }
 
@@ -185,44 +179,27 @@ public class EntryPage extends AppCompatActivity {
 
     private String getMonthFormat(int month)
     {
-        //TODO switch case or smthng
-        if(month == 1)
-            return "JAN";
-        if(month == 2)
-            return "FEB";
-        if(month == 3)
-            return "MAR";
-        if(month == 4)
-            return "APR";
-        if(month == 5)
-            return "MAY";
-        if(month == 6)
-            return "JUN";
-        if(month == 7)
-            return "JUL";
-        if(month == 8)
-            return "AUG";
-        if(month == 9)
-            return "SEP";
-        if(month == 10)
-            return "OCT";
-        if(month == 11)
-            return "NOV";
-        if(month == 12)
-            return "DEC";
-
-        //default should never happen
-        return "JAN";
+        switch (month){
+            case 1: return "JAN";
+            case 2: return "FEB";
+            case 3: return "MAR";
+            case 4: return "APR";
+            case 5: return "MAY";
+            case 6: return "JUN";
+            case 7: return "JUL";
+            case 8: return "AUG";
+            case 9: return "SEP";
+            case 10: return "OCT";
+            case 11: return "NOV";
+            case 12: return "DEC";
+            default: return "ERR";
+        }
     }
 
     public void openDatePicker(View view)
     {
         datePickerDialog.show();
     }
-
-
-
-
 
     private void addMediaItemToLayout(Uri mediaUri) {
         // Create a new LinearLayout to hold the media item and remove button
@@ -261,8 +238,6 @@ public class EntryPage extends AppCompatActivity {
 
             // Update the mediaLayout after removal
             updateMediaLayout();
-
-
         });
 
         // Add the ImageView and Remove button to the mediaItemLayout
@@ -273,8 +248,6 @@ public class EntryPage extends AppCompatActivity {
         LinearLayout mediaLayout = findViewById(R.id.mediaLayout);
         mediaLayout.addView(mediaItemLayout);
     }
-
-
 
     private void loadVideoThumbnail(ImageView imageView, Uri videoUri) {
         Glide.with(this)
@@ -288,11 +261,6 @@ public class EntryPage extends AppCompatActivity {
         // For example, you can check if the path ends with ".mp4"
         return path.toLowerCase().endsWith(".mp4");
     }
-
-
-
-
-
 
     private void updateMediaLayout() {
         // Clear the mediaLayout to refresh the displayed media items
@@ -355,13 +323,11 @@ public class EntryPage extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = createImageFile();
-            if (photoFile != null) {
-                currentMediaUri = FileProvider.getUriForFile(this,
-                        "com.example.oldcastellovers.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentMediaUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
+            currentMediaUri = FileProvider.getUriForFile(this,
+                    "com.example.oldcastellovers.fileprovider",
+                    photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, currentMediaUri);
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
@@ -401,8 +367,6 @@ public class EntryPage extends AppCompatActivity {
     private void stopRecordingAudio() {
         // Your audio recording stop code here
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

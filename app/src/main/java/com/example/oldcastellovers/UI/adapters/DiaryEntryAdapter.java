@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide; // You may need to add the Glide library to your dependencies.
-import com.example.oldcastellovers.models.DiaryEntryModel;
+import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.database.models.DiaryEntryModel;
 
 import java.util.List;
 

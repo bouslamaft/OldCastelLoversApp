@@ -1,11 +1,11 @@
-package com.example.oldcastellovers.model;
+package com.example.oldcastellovers.network.dto;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
 
-public class PlaceAutocompleteResponse {
+public class PlaceAutocompleteResponseDTO {
     private String status;
     @SerializedName("predictions")
     private ArrayList<PlacePredictions> placePredictions;

@@ -1,4 +1,4 @@
-package com.example.oldcastellovers;
+package com.example.oldcastellovers.UI.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.oldcastellovers.UI.GalleryItem;
+import com.example.oldcastellovers.UI.MediaGalleryItem;
+import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.UI.activities.MediaViewActivity;
+import com.example.oldcastellovers.UI.VideoGalleryItem;
+
 import java.util.List;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
