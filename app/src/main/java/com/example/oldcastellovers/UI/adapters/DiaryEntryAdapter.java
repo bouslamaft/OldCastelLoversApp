@@ -47,7 +47,11 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
 
         // Load image using Glide
         String imagePath = entry.getMediaPath().get(0); // Assuming the first element is the image path
-        Glide.with(context).load(imagePath).into(holder.photoImageView);
+        Glide.with(context)
+                .load(imagePath)
+                .placeholder(R.drawable.homecastlepic) // Replace with your placeholder image
+                .into(holder.photoImageView);
+
     }
 
     @Override
