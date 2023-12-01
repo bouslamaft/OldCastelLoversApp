@@ -1,0 +1,20 @@
+<!-- res/menu/bottom_navigation_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:title=""
+        android:icon="@drawable/home" />
+    <item
+        android:id="@+id/navigation_bookmark"
+        android:title=""
+        android:icon="@drawable/bookmark" />
+    <item
+        android:id="@+id/navigation_Gallery"
+        android:title=""
+        android:icon="@drawable/galleryicon" />
+    <item
+        android:id="@+id/navigation_diary"
+        android:title=""
+        android:icon="@drawable/diaryicon" />
+        />
+</menu>
