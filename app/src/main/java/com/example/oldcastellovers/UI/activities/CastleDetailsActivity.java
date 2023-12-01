@@ -18,7 +18,6 @@ import com.example.oldcastellovers.network.CastleService;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.CastleViewModel;
 import com.example.oldcastellovers.UI.adapters.PhotoPagerAdapter;
-import com.example.oldcastellovers.UI.adapters.ReviewAdapter;
 import com.example.oldcastellovers.UI.adapters.TabAdapter;
 import com.example.oldcastellovers.UI.fragments.AboutFragment;
 import com.example.oldcastellovers.UI.fragments.OverviewFragment;
@@ -38,7 +37,6 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
     ViewPager photoViewPager;
     TextView castleNameTextView;
     PhotoPagerAdapter photoPagerAdapter;
-    ReviewAdapter reviewAdapter;
     RatingBar ratingBar;
     private TabLayout tabLayout;
     private ViewPager tabViewPager;
@@ -117,8 +115,6 @@ public class CastleDetailsActivity extends AppCompatActivity implements CastleSe
         createEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Check if castle details are available
-                // Create an intent to start EntryPageActivity
                 Intent intent = new Intent(CastleDetailsActivity.this, EntryPageActivity.class);
 
                 // Pass castle details to EntryPageActivity

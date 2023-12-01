@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:title="Home"
+        android:icon="@drawable/search_icon"/>
+    <item
+        android:id="@+id/navigation_bookmark"
+        android:title="Bookmark"
+        android:icon="@drawable/bookmarks_icon"/>
+    <item
+        android:id="@+id/navigation_Gallery"
+        android:title="Gallery"
+        android:icon="@drawable/gallery_icon"/>
+    <item
+        android:id="@+id/navigation_diary"
+        android:title="Diary"
+        android:icon="@drawable/diary_icon"/>
+
+</menu>
