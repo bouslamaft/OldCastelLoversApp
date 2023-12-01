@@ -48,6 +48,10 @@ public class HomePageActivity extends AppCompatActivity implements CastleService
                     Intent galleryIntent = new Intent(HomePageActivity.this, GalleryActivity.class);
                     startActivity(galleryIntent);
                     return true;
+                } else if (item.getItemId() == R.id.navigation_diary) {
+                    Intent DiaryIntent = new Intent(HomePageActivity.this, DiaryEntryActivity.class);
+                    startActivity(DiaryIntent);
+                    return true;
                 }
                 return false;
             }

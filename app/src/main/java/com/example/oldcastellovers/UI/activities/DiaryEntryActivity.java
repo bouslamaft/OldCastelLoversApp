@@ -1,7 +1,10 @@
 package com.example.oldcastellovers.UI.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +13,7 @@ import com.example.oldcastellovers.UI.adapters.DiaryEntryAdapter;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.database.DataBaseHelper;
 import com.example.oldcastellovers.database.models.DiaryEntryModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +34,31 @@ public class DiaryEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.display_entry_recycler_view);
+        // navigation:
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_home) {
+                    Intent HomePageIntent = new Intent(DiaryEntryActivity.this, HomePageActivity.class);
+                    startActivity(HomePageIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_bookmark) {
+                    Intent likedCastleIntent = new Intent(DiaryEntryActivity.this, LikedCastleActivity.class);
+                    startActivity(likedCastleIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_Gallery) {
+                    Intent GalleryIntent = new Intent(DiaryEntryActivity.this, GalleryActivity.class);
+                    startActivity(GalleryIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_diary) {
+                    // nothing to do.
+                    return true;
+                }
+                return false;
+            }
+        });
         entryRecyclerView = findViewById(R.id.entryrecyclerView);
 
         dataBaseHelper = new DataBaseHelper(this);
@@ -44,9 +73,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
     }
 
     // sorting by entry date and castle name
-    //function to sort by date
-    //function to sort by caslte
-    private void sortDiaryEntryModels(List<DiaryEntryModel> diaryEntryModels) {
+    public void sortDiaryEntryModels(List<DiaryEntryModel> diaryEntryModels) {
         Collections.sort(diaryEntryModels, new Comparator<DiaryEntryModel>() {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.getDefault());
 

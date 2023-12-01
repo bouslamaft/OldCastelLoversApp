@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +49,10 @@ public class GalleryActivity extends AppCompatActivity {
                     return true;
                 } else if (item.getItemId() == R.id.navigation_Gallery) {
                     // do nothing.
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_diary) {
+                    Intent DiaryIntent = new Intent(GalleryActivity.this, DiaryEntryActivity.class);
+                    startActivity(DiaryIntent);
                     return true;
                 }
                 return false;

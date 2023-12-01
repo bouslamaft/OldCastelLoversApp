@@ -44,6 +44,10 @@ public class LikedCastleActivity extends AppCompatActivity implements LikedCastl
                     Intent galleryIntent = new Intent(LikedCastleActivity.this, GalleryActivity.class);
                     startActivity(galleryIntent);
                     return true;
+                } else if (item.getItemId() == R.id.navigation_diary) {
+                    Intent DiaryIntent = new Intent(LikedCastleActivity.this, DiaryEntryActivity.class);
+                    startActivity(DiaryIntent);
+                    return true;
                 }
                 return false;
             }
