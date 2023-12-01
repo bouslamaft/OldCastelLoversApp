@@ -44,6 +44,8 @@ public class DiaryEntryActivity extends AppCompatActivity {
     }
 
     // sorting by entry date and castle name
+    //function to sort by date
+    //function to sort by caslte
     private void sortDiaryEntryModels(List<DiaryEntryModel> diaryEntryModels) {
         Collections.sort(diaryEntryModels, new Comparator<DiaryEntryModel>() {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.getDefault());

@@ -1,8 +1,11 @@
 package com.example.oldcastellovers.UI.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +14,7 @@ import com.example.oldcastellovers.UI.adapters.LikedCastleAdapter;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.database.DataBaseHelper;
 import com.example.oldcastellovers.database.models.LikedCastleModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -23,6 +27,28 @@ public class LikedCastleActivity extends AppCompatActivity implements LikedCastl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liked_recycler_view);
+
+        //navigation bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_home) {
+                    Intent HomePageIntent = new Intent(LikedCastleActivity.this, HomePageActivity.class);
+                    startActivity(HomePageIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_bookmark) {
+                    // do nothing
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_Gallery) {
+                    Intent galleryIntent = new Intent(LikedCastleActivity.this, GalleryActivity.class);
+                    startActivity(galleryIntent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         likedCastleRecyclerView = findViewById(R.id.likedCastleRecyclerView);
 

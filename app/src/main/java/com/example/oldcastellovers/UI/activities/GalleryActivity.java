@@ -2,7 +2,9 @@ package com.example.oldcastellovers.UI.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,6 +15,7 @@ import com.example.oldcastellovers.UI.GalleryItem;
 import com.example.oldcastellovers.UI.MediaGalleryItem;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.VideoGalleryItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,6 +33,26 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_home) {
+                    Intent HomePageIntent = new Intent(GalleryActivity.this, HomePageActivity.class);
+                    startActivity(HomePageIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_bookmark) {
+                    Intent likedCastleIntent = new Intent(GalleryActivity.this, LikedCastleActivity.class);
+                    startActivity(likedCastleIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_Gallery) {
+                    // do nothing.
+                    return true;
+                }
+                return false;
+            }
+        });
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));

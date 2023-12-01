@@ -1,11 +1,14 @@
 package com.example.oldcastellovers.UI.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
@@ -13,6 +16,7 @@ import com.example.oldcastellovers.network.CastleService;
 import com.example.oldcastellovers.R;
 import com.example.oldcastellovers.UI.adapters.CastleAdapter;
 import com.example.oldcastellovers.network.dto.CastleDTO;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -26,6 +30,28 @@ public class HomePageActivity extends AppCompatActivity implements CastleService
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page);
+
+
+        // navigation menu
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_home) {
+                    // Do nothing, stay in the same screen
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_bookmark) {
+                    Intent likedCastleIntent = new Intent(HomePageActivity.this, LikedCastleActivity.class);
+                    startActivity(likedCastleIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_Gallery) {
+                    Intent galleryIntent = new Intent(HomePageActivity.this, GalleryActivity.class);
+                    startActivity(galleryIntent);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         searchBarEditText = findViewById(R.id.search_bar);
         castleRecyclerView = findViewById(R.id.castles_recycler_view);
