@@ -139,6 +139,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         // Define the columns you want to retrieve
         String[] columns = {
+                COLUMN_ENTRY_ID,
                 COLUMN_DIARY_CASTLE_NAME,
                 COLUMN_DIARY_CASTLE_LOCATION,
                 COLUMN_DIARY_ENTRY_DATE,
@@ -157,10 +158,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                String castleName = cursor.getString(0);
-                String castleLocation = cursor.getString(1);
-                String entryDate = cursor.getString(2);
-                String mediaPathString = cursor.getString(3);
+                int entryId = cursor.getInt(0);
+                String castleName = cursor.getString(1);
+                String castleLocation = cursor.getString(2);
+                String entryDate = cursor.getString(3);
+                String mediaPathString = cursor.getString(4);
                 Log.d("abc", "castlename :"+castleName+" loc "+castleLocation+"entryDate"+entryDate+"mediaPathString"+mediaPathString);
 
                 ArrayList<String> mediaPath = new ArrayList<>(Arrays.asList(mediaPathString.split(",")));
@@ -181,7 +183,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 for (int i = 0; i < mediaPath.size(); i++) {
                     Log.d("print list",mediaPath.get(i));
                 }
-                DiaryEntryModel entryDetails = new DiaryEntryModel(0, entryDate, castleName, castleLocation, null, null, mediaPath);
+                DiaryEntryModel entryDetails = new DiaryEntryModel(entryId, entryDate, castleName, castleLocation, null, null, mediaPath);
                 returnList.add(entryDetails);
             } while (cursor.moveToNext());
         }
@@ -189,6 +191,52 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return returnList;
+    }
+
+    public DiaryEntryModel getDiaryEntryDetails(int entryId) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Define the columns you want to retrieve
+        String[] columns = {
+                COLUMN_DIARY_ENTRY_DATE,
+                COLUMN_DIARY_CASTLE_NAME,
+                COLUMN_DIARY_CASTLE_LOCATION,
+                COLUMN_DIARY_CASTLE_WEBSITE,
+                COLUMN_DIARY_NOTES
+        };
+
+        // Specify the selection criteria
+        String selection = COLUMN_ENTRY_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(entryId)};
+
+        Cursor cursor = db.query(
+                DIARY_ENTRY_TABLE,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        DiaryEntryModel diaryEntryDetails = null;
+
+        if (cursor.moveToFirst()) {
+            // Retrieve values from the cursor
+            String entryDate = cursor.getString(0);
+            String castleName = cursor.getString(1);
+            String castleLocation = cursor.getString(2);
+            String castleWebsite = cursor.getString(3);
+            String notes = cursor.getString(4);
+
+            // Create a DiaryEntryModel object
+            diaryEntryDetails = new DiaryEntryModel(entryId, entryDate, castleName, castleLocation, castleWebsite, notes, null);
+        }
+
+        cursor.close();
+        db.close();
+
+        return diaryEntryDetails;
     }
 
 

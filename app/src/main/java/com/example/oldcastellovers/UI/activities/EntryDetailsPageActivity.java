@@ -3,18 +3,55 @@ package com.example.oldcastellovers.UI.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.database.DataBaseHelper;
+import com.example.oldcastellovers.database.models.DiaryEntryModel;
 
 public class EntryDetailsPageActivity extends AppCompatActivity {
+
+    Button datePickerButton;
+
+    TextView textViewCastleContent, textViewlocationContent, textViewWebsiteContent, DisplayTexts;
+    DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_details_page);
+
+        // Get the entry ID from the intent
+        int entryId = getIntent().getIntExtra("entryid", -1);
+        Log.d("test222", "onCreate: " + entryId);
+
+
+
+        datePickerButton = findViewById(R.id.datePickerButton);
+        textViewCastleContent = findViewById(R.id.textViewCastleContent);
+        textViewlocationContent = findViewById(R.id.textViewlocationContent);
+        textViewWebsiteContent = findViewById(R.id.textViewWebsiteContent);
+        DisplayTexts = findViewById(R.id.DisplayTexts);
+
+        dataBaseHelper  = new DataBaseHelper(EntryDetailsPageActivity.this);
+
+        // Fetch the DiaryEntryModel from the database based on entryId
+        DiaryEntryModel entryDetails = dataBaseHelper.getDiaryEntryDetails(entryId);
+
+        // Display the values in the UI components
+        if (entryDetails != null) {
+            datePickerButton.setText(entryDetails.getDate());
+            textViewCastleContent.setText(entryDetails.getCastleName());
+            textViewlocationContent.setText(entryDetails.getCastleLocation());
+            textViewWebsiteContent.setText(entryDetails.getWebsite());
+            DisplayTexts.setText(entryDetails.getNotes());
+        }
+
     }
 
     private void addMediaItemToLayout(Uri mediaUri) {

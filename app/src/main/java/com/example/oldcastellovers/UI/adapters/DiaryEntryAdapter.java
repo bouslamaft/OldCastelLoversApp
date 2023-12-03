@@ -1,6 +1,8 @@
 package com.example.oldcastellovers.UI.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide; // You may need to add the Glide library to your dependencies.
 import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.UI.activities.CastleDetailsActivity;
+import com.example.oldcastellovers.UI.activities.EntryDetailsPageActivity;
 import com.example.oldcastellovers.database.models.DiaryEntryModel;
 
 import java.util.List;
@@ -52,6 +56,15 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
                 .placeholder(R.drawable.homecastlepic) // Replace with your placeholder image
                 .into(holder.photoImageView);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, EntryDetailsPageActivity.class);
+                intent.putExtra("entryid", entry.getEntryID());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

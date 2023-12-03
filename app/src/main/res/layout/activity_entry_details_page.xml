@@ -37,11 +37,9 @@
         android:textSize="18sp"
         android:fontFamily="serif-monospace"
         android:textColor="@android:color/black"
-        style="?android:spinnerStyle"
         android:layout_below="@id/textViewTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:onClick="openDatePicker" />
+        android:layout_marginTop="16dp" />
 
     <!-- Castle Name with an icon (e.g., castle icon) -->
     <RelativeLayout
@@ -168,7 +166,10 @@
         android:layout_marginTop="16dp"
         android:hint=""
         android:inputType="textMultiLine"
-        android:background="@android:color/background_light" />
+        android:background="@android:color/background_light"
+        android:maxLines="10"
+        android:scrollbars="vertical"
+        android:padding="8dp" />
     <!-- Add a layout to display pictures and videos -->
 
     <!-- Scroll View for Media -->
