@@ -172,23 +172,17 @@
         android:padding="8dp" />
     <!-- Add a layout to display pictures and videos -->
 
-    <!-- Scroll View for Media -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/DisplayTexts"
-        android:layout_marginTop="16dp">
-
-        <!-- Linear Layout to hold media elements (pictures and videos) -->
-        <LinearLayout
-            android:id="@+id/mediaLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/diary_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="200dp"
+            android:layout_below="@id/DisplayTexts"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:numColumns="3"
+            android:layout_gravity="center"
+            android:orientation="horizontal"/>
 
-            <!-- Add your media elements (e.g., ImageViews or VideoViews) here -->
-        </LinearLayout>
-    </ScrollView>
 
 
 

@@ -196,13 +196,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public DiaryEntryModel getDiaryEntryDetails(int entryId) {
         SQLiteDatabase db = getReadableDatabase();
 
+
         // Define the columns you want to retrieve
         String[] columns = {
                 COLUMN_DIARY_ENTRY_DATE,
                 COLUMN_DIARY_CASTLE_NAME,
                 COLUMN_DIARY_CASTLE_LOCATION,
                 COLUMN_DIARY_CASTLE_WEBSITE,
-                COLUMN_DIARY_NOTES
+                COLUMN_DIARY_NOTES,
+                COLUMN_DIARY_MEDIAPATH
         };
 
         // Specify the selection criteria
@@ -221,6 +223,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         DiaryEntryModel diaryEntryDetails = null;
 
+        // Add the elements to the ArrayList
         if (cursor.moveToFirst()) {
             // Retrieve values from the cursor
             String entryDate = cursor.getString(0);
@@ -228,15 +231,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             String castleLocation = cursor.getString(2);
             String castleWebsite = cursor.getString(3);
             String notes = cursor.getString(4);
+            String mediaPathString = cursor.getString(5);
+
+            ArrayList<String> mediapath = new ArrayList<>(Arrays.asList(mediaPathString.split(",")));
+            // Add the media path string to the list
+            addStringToList(mediaPathString, mediapath);
+
+
+
+
 
             // Create a DiaryEntryModel object
-            diaryEntryDetails = new DiaryEntryModel(entryId, entryDate, castleName, castleLocation, castleWebsite, notes, null);
+            diaryEntryDetails = new DiaryEntryModel(entryId, entryDate, castleName, castleLocation, castleWebsite, notes, mediapath);
         }
 
         cursor.close();
         db.close();
 
         return diaryEntryDetails;
+    }
+
+    private static void addStringToList(String inputString, List<String> list) {
+        // Split the input string using commas as separators
+        String[] items = inputString.split(",");
+
+        // Add each item to the list
+        list.addAll(Arrays.asList(items));
     }
 
 
