@@ -1,6 +1,10 @@
 package com.example.oldcastellovers.UI.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +15,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.oldcastellovers.R;
+import com.example.oldcastellovers.UI.adapters.DiaryEntryAdapter;
+import com.example.oldcastellovers.UI.adapters.DiaryEntryMediaAdapter;
 import com.example.oldcastellovers.database.DataBaseHelper;
 import com.example.oldcastellovers.database.models.DiaryEntryModel;
+
+import java.util.List;
 
 public class EntryDetailsPageActivity extends AppCompatActivity {
 
@@ -20,6 +28,8 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
 
     TextView textViewCastleContent, textViewlocationContent, textViewWebsiteContent, DisplayTexts;
     DataBaseHelper dataBaseHelper;
+    RecyclerView diary_recycler_view;
+    DiaryEntryMediaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +38,6 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
 
         // Get the entry ID from the intent
         int entryId = getIntent().getIntExtra("entryid", -1);
-        Log.d("test222", "onCreate: " + entryId);
-
 
 
         datePickerButton = findViewById(R.id.datePickerButton);
@@ -37,6 +45,8 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
         textViewlocationContent = findViewById(R.id.textViewlocationContent);
         textViewWebsiteContent = findViewById(R.id.textViewWebsiteContent);
         DisplayTexts = findViewById(R.id.DisplayTexts);
+        diary_recycler_view = findViewById(R.id.diary_recycler_view);
+
 
         dataBaseHelper  = new DataBaseHelper(EntryDetailsPageActivity.this);
 
@@ -50,7 +60,22 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
             textViewlocationContent.setText(entryDetails.getCastleLocation());
             textViewWebsiteContent.setText(entryDetails.getWebsite());
             DisplayTexts.setText(entryDetails.getNotes());
+
+
         }
+
+//        adapter = new DiaryEntryAdapter(this, diaryEntryModels);
+//        entryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        entryRecyclerView.setAdapter(adapter);
+
+        List<DiaryEntryModel> diaryEntryModels = dataBaseHelper.getCastleDetailsWithMediaPath();
+
+        // Set up RecyclerView with a grid layout manager
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        diary_recycler_view.setLayoutManager(layoutManager);
+
+        adapter = new DiaryEntryMediaAdapter(this, diaryEntryModels);
+        diary_recycler_view.setAdapter(adapter);
 
     }
 
@@ -102,4 +127,3 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
 
 
 }
-
