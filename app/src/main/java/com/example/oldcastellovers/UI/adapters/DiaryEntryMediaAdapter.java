@@ -41,14 +41,8 @@ public class DiaryEntryMediaAdapter extends RecyclerView.Adapter<DiaryEntryMedia
     public void onBindViewHolder(@NonNull DiaryViewHolder holder, int position) {
         String entry = diaryEntries.get(position);
 
-        // Clear the existing content in the ImageView
-        holder.imageView.setImageDrawable(null);
-
         // Load the media content into the ImageView using Glide
         loadImageIntoImageView(entry, holder.imageView);
-
-
-        Log.d("test333", "path " + entry);
     }
 
     @Override
@@ -69,12 +63,10 @@ public class DiaryEntryMediaAdapter extends RecyclerView.Adapter<DiaryEntryMedia
 
     // Helper method to load the image into the ImageView using Glide
     private void loadImageIntoImageView(String mediaPath, ImageView imageView) {
-        // You can customize RequestOptions as needed (e.g., placeholder, error)
-        RequestOptions requestOptions = new RequestOptions();
 
         Glide.with(context)
                 .load(mediaPath)
-                .apply(requestOptions)
+                .placeholder(R.drawable.homecastlepic) // Replace with your placeholder image
                 .into(imageView);
     }
 }

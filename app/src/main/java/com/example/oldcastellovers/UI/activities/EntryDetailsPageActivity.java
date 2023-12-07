@@ -21,7 +21,10 @@ import com.example.oldcastellovers.UI.adapters.DiaryEntryMediaAdapter;
 import com.example.oldcastellovers.database.DataBaseHelper;
 import com.example.oldcastellovers.database.models.DiaryEntryModel;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class EntryDetailsPageActivity extends AppCompatActivity {
 
@@ -66,6 +69,9 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
 
 
         }
+        // Remove duplicates from the media paths
+        ArrayList<String> uniqueMediaPaths = removeDuplicates(entryDetails.getMediaPath());
+
 
 //        adapter = new DiaryEntryAdapter(this, diaryEntryModels);
 //        entryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -77,8 +83,14 @@ public class EntryDetailsPageActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         diary_recycler_view.setLayoutManager(layoutManager);
 
-        adapter = new DiaryEntryMediaAdapter( this, entryDetails.getMediaPath());
+        adapter = new DiaryEntryMediaAdapter( this, uniqueMediaPaths);
         diary_recycler_view.setAdapter(adapter);
 
+    }
+
+    // Helper method to remove duplicates from a list
+    private ArrayList<String> removeDuplicates(ArrayList<String> list) {
+        Set<String> set = new HashSet<>(list);
+        return new ArrayList<>(set);
     }
 }
