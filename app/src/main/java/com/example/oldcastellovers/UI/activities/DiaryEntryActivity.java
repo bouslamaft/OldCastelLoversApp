@@ -3,6 +3,9 @@ package com.example.oldcastellovers.UI.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,14 +62,46 @@ public class DiaryEntryActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //adding the button to the menu :
+        ImageView filterIcon = findViewById(R.id.filter_icon);
         entryRecyclerView = findViewById(R.id.entryrecyclerView);
 
         dataBaseHelper = new DataBaseHelper(this);
 
         List<DiaryEntryModel> diaryEntryModels = dataBaseHelper.getCastleDetailsWithMediaPath();
 
-        sortDiaryEntryModels(diaryEntryModels);
+        // menu
+        filterIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(DiaryEntryActivity.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.filter_menu_layout, popupMenu.getMenu());
 
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.menu_date_filter) {
+                            sortByDate(diaryEntryModels);
+                            adapter.notifyDataSetChanged();
+                            return true;
+                        } else if (item.getItemId() == R.id.menu_alphabet_order) {
+                            sortByAlphabet(diaryEntryModels);
+                            adapter.notifyDataSetChanged();
+                            return true;  }
+                        else if (item.getItemId() == R.id.filter_by_DateANDAlpahabetic) {
+                            sortDiaryEntryModels(diaryEntryModels);
+                            adapter.notifyDataSetChanged();
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+
+                popupMenu.show();
+            }
+        });
         adapter = new DiaryEntryAdapter(this, diaryEntryModels);
         entryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         entryRecyclerView.setAdapter(adapter);
@@ -97,5 +132,41 @@ public class DiaryEntryActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
+    // sort by date:
+    public void sortByDate(List<DiaryEntryModel> diaryEntryModels) {
+        Collections.sort(diaryEntryModels, new Comparator<DiaryEntryModel>() {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.getDefault());
+
+            @Override
+            public int compare(DiaryEntryModel model1, DiaryEntryModel model2) {
+                try {
+                    Date date1 = dateFormat.parse(model1.getDate());
+                    Date date2 = dateFormat.parse(model2.getDate());
+
+                    // Compare dates (descending order - most recent first)
+                    return date2.compareTo(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0; // Handle the exception according to your needs
+                }
+            }
+        });
+    }
+
+
+    // sort by alphabetical order
+    public void sortByAlphabet(List<DiaryEntryModel> diaryEntryModels) {
+        Collections.sort(diaryEntryModels, new Comparator<DiaryEntryModel>() {
+            @Override
+            public int compare(DiaryEntryModel model1, DiaryEntryModel model2) {
+                // Compare castle names alphabetically
+                return model1.getCastleName().compareToIgnoreCase(model2.getCastleName());
+            }
+        });
+    }
+
+
 }
