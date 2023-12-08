@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_date_filter"
+        android:title="Sort By Date" />
+    <item
+        android:id="@+id/menu_alphabet_order"
+        android:title="Sort By Alphabet" />
+    <item
+        android:id="@+id/filter_by_DateANDAlpahabetic"
+        android:title="Sort By Date And Alphabet" />
+</menu>
